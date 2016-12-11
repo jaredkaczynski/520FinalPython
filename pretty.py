@@ -305,14 +305,19 @@ html_footer = r"""<br>
          var myChart = new Chart(ctx, {
          type: 'bar',
          data: {
-         labels: ["Pre-Process", "Analysis"],
+         labels: ["Mutation Testing"],
          datasets: [{
-		 label: "Time",
+		 label: "Pre-Process",
          backgroundColor: [
-         "#009688",
          "#009688"
          ],
-         data: [MUTANT_PREPROCESS,MUTANT_ANALYSIS]
+         data: [MUTANT_PREPROCESS]
+         },{
+		 label: "Analysis",
+         backgroundColor: [
+         "#D1C4E9"
+         ],
+         data: [MUTANT_ANALYSIS]
          }]
          }
          });

@@ -3417,14 +3417,19 @@ r.save(),i._children.length>0&&a.fill&&(r.beginPath(),e.each(i._children,functio
          var myChart = new Chart(ctx, {
          type: 'bar',
          data: {
-         labels: ["Pre-Process", "Analysis"],
+         labels: ["Mutation Testing"],
          datasets: [{
-		 label: "Time",
+		 label: "Pre-Process",
          backgroundColor: [
-         "#009688",
          "#009688"
          ],
-         data: [0.07,0.8]
+         data: [0.07]
+         },{
+		 label: "Analysis",
+         backgroundColor: [
+         "#D1C4E9"
+         ],
+         data: [0.8]
          }]
          }
          });
