@@ -57,7 +57,7 @@ r.save(),i._children.length>0&&a.fill&&(r.beginPath(),e.each(i._children,functio
    
    .table{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-   
+	
    }
    
    .myTable tr th{
@@ -187,12 +187,17 @@ html_summary = r"""<div class = "visualizations">
          <br>
          <div class = "well">
             <div class="row">
-               <div class="col-md-6">
+               <div class="col-md-4">
                   <h4 align="center"> <strong>Mutation Score </strong></h4>
                   <br>
                   <canvas id="mutationScore"></canvas>
                </div>
-               <div class="col-md-6">
+			   <div class="col-md-4">
+                  <h4 align="center"> <strong>Run Time </strong></h4>
+                  <br>
+                  <canvas id="runTime"></canvas>
+               </div>
+               <div class="col-md-4">
                   <h4 align="center"> <strong>Killed vs. Non Killed Mutants </strong></h4>
                   <br>
                   <canvas id="killedMutants"></canvas>
@@ -252,7 +257,7 @@ html_table_rows = r"""
                      MUTANT_CODE_CHANGE_AFTER
                   </td>
                   <td>
-                     MUTANT_EQUIVALENT
+						<input type="checkbox" value="">
                   </td>
 				  
                </tr>"""
@@ -295,6 +300,23 @@ html_footer = r"""<br>
          }
          });
       </script>
+	  <script>
+		var ctx = document.getElementById("runTime").getContext('2d');
+         var myChart = new Chart(ctx, {
+         type: 'bar',
+         data: {
+         labels: ["Pre-Process", "Analysis"],
+         datasets: [{
+		 label: "Time",
+         backgroundColor: [
+         "#009688",
+         "#009688"
+         ],
+         data: [MUTANT_PREPROCESS,MUTANT_ANALYSIS]
+         }]
+         }
+         });
+	  </script>
    </body>
 </html>"""
 
@@ -368,7 +390,8 @@ def add_data():
 		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
 	repls1 = {'MUTANTS_KILLED_ACTUAL' : summary_dict['MutantsKilled'], 'MUTANTS_ALIVE_ACTUAL' : summary_dict['MutantsLive'],
 	'MUTANTS_KILLED_PERCENT' : str(float(summary_dict['MutantsKilled'])/float(summary_dict['MutantsGenerated'])),
-	'MUTANTS_REMAINING_PERCENT' : str(float(summary_dict['MutantsLive'])/float(summary_dict['MutantsGenerated']))}
+	'MUTANTS_REMAINING_PERCENT' : str(float(summary_dict['MutantsLive'])/float(summary_dict['MutantsGenerated'])),
+	'MUTANT_PREPROCESS' : str(summary_dict['RuntimePreprocSeconds']), 'MUTANT_ANALYSIS' : str(summary_dict['RuntimeAnalysisSeconds'])}
 	html_footer = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls1.iteritems(), html_footer)
 	
 def build_html():
