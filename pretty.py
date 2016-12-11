@@ -250,9 +250,7 @@ html_table_rows = r"""
                   <td>
                      MUTANT_EQUIVALENT
                   </td>
-				  <td>
-				  <input type="checkbox" id="cbox1" value="first_checkbox">
-				  </td>
+				  
                </tr>"""
 html_footer = r"""<br>
       
@@ -271,7 +269,7 @@ html_footer = r"""<br>
                "#2ecc71",
                "#e74c3c"
              ],
-             data: [94, 6]
+             data: [MUTANTS_KILLED_PERCENT, MUTANTS_REMAINING_PERCENT]
            }]
          }
          });
@@ -288,7 +286,7 @@ html_footer = r"""<br>
          "#2ecc71",
          "#e74c3c"
          ],
-         data: [MUTANTS_KILLED,MUTANTS_ALIVE]
+         data: [MUTANTS_KILLED_ACTUAL,MUTANTS_ALIVE_ACTUAL]
          }]
          }
          });
@@ -364,7 +362,9 @@ def add_data():
 		'MUTANT_EQUIVALENT' : "Not working rn"}
 		
 		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
-	repls1 = {'MUTANTS_KILLED' : summary_dict['MutantsKilled'], 'MUTANTS_ALIVE' : summary_dict['MutantsLive']}
+	repls1 = {'MUTANTS_KILLED_ACTUAL' : summary_dict['MutantsKilled'], 'MUTANTS_ALIVE_ACTUAL' : summary_dict['MutantsLive'],
+	'MUTANTS_KILLED_PERCENT' : str(float(summary_dict['MutantsKilled'])/float(summary_dict['MutantsGenerated'])),
+	'MUTANTS_REMAINING_PERCENT' : str(float(summary_dict['MutantsLive'])/float(summary_dict['MutantsGenerated']))}
 	html_footer = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls1.iteritems(), html_footer)
 	
 def build_html():
