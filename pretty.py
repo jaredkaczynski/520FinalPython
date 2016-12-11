@@ -439,24 +439,25 @@ html_summary = r"""<div class = "visualizations">
          <br>
          <thead class ="myTable">
             <tr>
-               <th id="mutantid">
+               <th id="mutantid" class="col-md-2">
                   Mutant ID
                </th>
-               <th id="killed">
+               <th id="killed" class="col-md-1">
                   Killed
                </th>
-               <th id="lineofCodeThatChanged">
+               <th id="lineofCodeThatChanged" class="col-md-2">
                   Line of Code that Changed
                </th>
-			   <th id="snippetofCodeThatChangedBefore">
+			    <th id= "EquivalentOrNot" class="col-md-1">
+               Equivalent
+               </th>
+			   <th id="snippetofCodeThatChangedBefore" class="col-md-3">
                   Original Code
                </th>
-			   <th id="snippetofCodeThatChangedAfter">
+			   <th id="snippetofCodeThatChangedAfter" class="col-md-3">
                   Mutant Code
                </th>
-               <th = "EquivalentOrNot">
-               Equivalent or Not
-               </th>
+              
 			   
             </tr>
 
@@ -477,21 +478,27 @@ html_table_rows = r"""
 					MUTANT_CODE_CHANGE_LINE
                   </td>
 				  <td>
+						<input type="checkbox" value="">
+                  </td>
+				  <td>
                      MUTANT_CODE_CHANGE_BEFORE
                   </td>
 				  <td>
                      MUTANT_CODE_CHANGE_AFTER
                   </td>
-                  <td>
-						<input type="checkbox" value="">
-                  </td>
+                  
 			   </tr>
 				<tr>
 					<div class="row">
 				
-					<td colspan="12" class="hidden_row">
+					<td colspan="3" class="hidden_row">
 						<div id="demoMUTANT_ID" class="collapse">
 						<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">ORIGINAL_SOURCE_CODE</code></pre>
+						</div>					
+					</td>
+					<td colspan="3" class="hidden_row">
+						<div id="demoMUTANT_ID" class="collapse">
+						<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">MUTANT_SOURCE_CODE</code></pre>
 						</div>					
 					</td>
 					</div>
@@ -586,6 +593,7 @@ r.save(),i._children.length>0&&a.fill&&(r.beginPath(),e.each(i._children,functio
 </html>"""
 
 html_table_rows_built = ""
+mutant_list = dict()
 
 #hold the file and the path to reach it
 class_name = ''
@@ -651,7 +659,8 @@ def add_data():
 		'MUTANT_CODE_CHANGE_BEFORE' : diffs_dict[str(i)][2],
 		'MUTANT_CODE_CHANGE_AFTER' : diffs_dict[str(i)][3],
 		'MUTANT_EQUIVALENT' : "Not working rn",
-		'ORIGINAL_SOURCE_CODE' : original_source_file}
+		'ORIGINAL_SOURCE_CODE' : original_source_file,
+		'MUTANT_SOURCE_CODE': mutant_list[i]}
 		
 		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
 	repls1 = {'MUTANTS_KILLED_ACTUAL' : summary_dict['MutantsKilled'], 'MUTANTS_ALIVE_ACTUAL' : summary_dict['MutantsLive'],
@@ -675,11 +684,19 @@ def readOriginal():
 	original_source_file = source.read()
 	print(original_source_file)
 	
+def readMutants():
+	global mutant_list
+	for i in range(1,len(killed_dict)+1):
+		mutant_list[i] = (open('mutation_results/mutants/' + str(i) +'/' + class_path+class_name, 'r').read())
+	
+	
 def main():
 	read_summary()
 	read_killed()
 	read_diff()
 	readOriginal()
+	readMutants()
+	print(mutant_list)
 	print(class_path)
 	print(function_name)
 	add_data()
