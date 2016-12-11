@@ -179,10 +179,9 @@ html_summary = r"""<div class = "visualizations">
          <br>
          <br>
       </div>
-	  <br>"""
-	
-html_footer = r"""<br>
-      <br>
+	  <br>
+	  
+	  <br>
       <br>
       <table class="table">
          <h1> Detailed Analysis </h1>
@@ -204,20 +203,25 @@ html_footer = r"""<br>
             </tr>
          </thead>
          <tbody>
-               <tr>
+	  """
+html_table_rows = r"""
+					<tr>
                   <td>
-                     CONTENT
+                     MUTANT_ID
                   </td>
                   <td>
-                     CONTENT
+                     MUTANT_KILLED
                   </td>
                   <td>
-                     CONTENT
+                     MUTANT_CODE_CHANGE_LINE
                   </td>
                   <td>
-                     CONTENT
+                     MUTANT_EQUIVALENT
                   </td>
-               </tr>
+               </tr>"""
+html_footer = r"""<br>
+      
+               
             </tbody>
          </table>
       </div>
@@ -257,6 +261,8 @@ html_footer = r"""<br>
       </script>
    </body>
 </html>"""
+
+html_table_rows_built = ""
 	
 def read_summary():
 	global summary_dict
@@ -281,22 +287,32 @@ def read_diff():
 	global diffs_dict
 	diffs_dict = {}
 	with open(log_mutants_path) as f:
-		#reader = csv.DictReader(f)
 		rows = f.readlines()
 		for row in rows:
 			temp = row.split(":")
 			diffs = temp[6].split("|==>")
 			diffs_dict[temp[0]] = [temp[1],temp[5],diffs[0],diffs[1].rstrip()]
+			
 	print(diffs_dict['125'])
 	print(len(diffs_dict))
 
 def add_data():
 	global html_summary
-	repls = {'TOTAL_MUTANTS' : summary_dict['MutantsGenerated'], 'TOTAL_TIME' : summary_dict['RuntimeAnalysisSeconds']}
-	html_summary = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls.iteritems(), html_summary)
+	global html_table_rows_built
+	repls1 = {'TOTAL_MUTANTS' : summary_dict['MutantsGenerated'], 'TOTAL_TIME' : summary_dict['RuntimeAnalysisSeconds']}
+	html_summary = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls1.iteritems(), html_summary)
+	print(killed_dict[str(1)])
+	print(diffs_dict[str(1)])
+	for i in range(1,len(killed_dict)):
+		repls2 = {'MUTANT_ID' : str(i), 'MUTANT_CODE_CHANGE_LINE' : diffs_dict[str(i)][1],'MUTANT_KILLED' : killed_dict[str(i)], 'MUTANT_EQUIVALENT' : "Not working rn"}
+		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
+		#MUTANT_ID = i
+		#MUTANT_CODE_CHANGE_LINE = diffs_dict[i][1]
+		#MUTANT_KILLED = killed_dict[i]
+		#MUTANT_EQUIVALENT = "Not working rn"
 	
 def build_html():
-	html_out = html_header+html_summary+html_footer
+	html_out = html_header+html_summary+html_table_rows+html_footer
 	target = open("out/index.html", 'w')
 	target.write(html_out)
 	target.close()
