@@ -1,6 +1,7 @@
 import csv
 from collections import  defaultdict
 from csv import DictReader
+import string
 
 
 killed_mutants_dir = "mutation_results/killed.csv"
@@ -62,7 +63,7 @@ html_summary = r"""<h2> Summary</h2>
                   <h4> <strong> MUTANTS ANALYZED </strong> </h4>
                </div>
                <div class="well" style="background-color:pink;">
-                  <h1> <strong> 0.9 s</strong> </h1>
+                  <h1> <strong> TOTAL_TIME s</strong> </h1>
                   <h4 d ="timeAnalysis"> <strong> TIME ANALYSIS </strong> </h4>
                </div>
             </div>
@@ -71,10 +72,88 @@ html_summary = r"""<h2> Summary</h2>
          <br>
          <br>
       </div>
+    
+	  </div>"""
+	
+html_footer = r"""<br>
+      <br>
       
 	  
-	  </div>"""
-	  
+	  <h2> Detailed Analysis </h2>
+      <br>
+      <div class= "well">
+         <table class="table table-stripped">
+            <thead>
+               <tr>
+                  <th>
+                     Mutant ID
+                  </th>
+                  <th>
+                     Killed
+                  </th>
+                  <th>
+                     Line of Code that Changed
+                  </th>
+                  <th>
+                     Equivalent or Not
+                  </th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>
+                     CONTENT
+                  </td>
+                  <td>
+                     CONTENT
+                  </td>
+                  <td>
+                     CONTENT
+                  </td>
+                  <td>
+                     CONTENT
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+      <script>
+         var ctx = document.getElementById("mutationScore").getContext('2d');
+         var myChart = new Chart(ctx, {
+         type: 'pie',
+         data: {
+           labels: ["positive index", "negative index",],
+           datasets: [{
+             backgroundColor: [
+               "#2ecc71",
+               "#e74c3c"
+             ],
+             data: [94, 6]
+           }]
+         }
+         });
+               
+      </script>
+      <script>
+         var ctx = document.getElementById("killedMutants").getContext('2d');
+         var myChart = new Chart(ctx, {
+         type: 'doughnut',
+         data: {
+         labels: ["Killed", "Unkilled",],
+         datasets: [{
+         backgroundColor: [
+         "#2ecc71",
+         "#e74c3c"
+         ],
+         data: [141,9]
+         }]
+         }
+         });
+      </script>
+   </body>
+</html>"""
+	
 def read_summary():
 	global summary_dict
 	summary_dict = {}
@@ -107,8 +186,21 @@ def read_diff():
 	print(diffs_dict['125'])
 	print(len(diffs_dict))
 
+def add_data():
+	new_html_summary = string.replace(html_summary,"TOTAL_MUTANTS",summary_dict['MutantsGenerated'])
+	new_html_summary2 = string.replace(new_html_summary,"TOTAL_TIME",summary_dict['RuntimeAnalysisSeconds'])
+	
+def build_html():
+	html_out = html_header+html_summary+html_footer
+	target = open("out/index.html", 'w')
+	target.write(html_out)
+	target.close()
+
 def main():
 	read_summary()
 	read_killed()
 	read_diff()
+	add_data()
+	build_html()
+	
 main()
