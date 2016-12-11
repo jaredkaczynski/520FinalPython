@@ -1,6 +1,9 @@
 import csv
 from collections import  defaultdict
 from csv import DictReader
+import cPickle as pickle
+import cgi
+import cgitb; cgitb.enable()
 import re
 
 
@@ -247,6 +250,9 @@ html_table_rows = r"""
                   <td>
                      MUTANT_EQUIVALENT
                   </td>
+				  <td>
+				  <input type="checkbox" id="cbox1" value="first_checkbox">
+				  </td>
                </tr>"""
 html_footer = r"""<br>
       
@@ -293,6 +299,7 @@ html_footer = r"""<br>
 html_table_rows_built = ""
 
 class_name = ''
+
 
 def read_summary():
 	global summary_dict
@@ -357,6 +364,9 @@ def build_html():
 	target = open("out/index.html", 'w')
 	target.write(html_out)
 	target.close()
+
+def update_html():
+	subprocess.call("sleep.sh", shell=True)
 
 def main():
 	read_summary()
