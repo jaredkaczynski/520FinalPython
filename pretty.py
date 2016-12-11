@@ -30,6 +30,13 @@ html_header = r"""<!DOCTYPE html>
 	
    }
    
+   .hidden_row{
+    padding: 0 !important;
+	padding-left: 3% !important;
+	padding-right: 3% !important;
+	border-top: 1px !important;
+   }
+   
    .myTable tr th{
      background-color: #673AB7;
 	 color: white;
@@ -199,21 +206,23 @@ html_summary = r"""<div class = "visualizations">
                   Line of Code that Changed
                </th>
 			   <th id="snippetofCodeThatChangedBefore">
-                  Code Before
+                  Original Code
                </th>
 			   <th id="snippetofCodeThatChangedAfter">
-                  Changed Code After
+                  Mutant Code
                </th>
                <th = "EquivalentOrNot">
                Equivalent or Not
                </th>
+			   
             </tr>
-         </thead>
+
+			</thead>
 		 
          <tbody>
 	  """
 html_table_rows = r"""
-					<tr>
+				<tr data-toggle="collapse" data-target="#demoMUTANT_ID">
                   <td>
                      MUTANT_ID
                   </td>
@@ -221,13 +230,10 @@ html_table_rows = r"""
                      MUTANT_KILLED
                   </td>
                   <td>
-                     MUTANT_CODE_CHANGE_LINE
-					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-  <div id="demo" class="collapse">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </div>
+					MUTANT_CODE_CHANGE_LINE
+					
+					<span class="glyphicon glyphicon-eye-open" data-toggle="collapse" data-target="#demo"></span>
+
                   </td>
 				  <td>
                      MUTANT_CODE_CHANGE_BEFORE
@@ -238,8 +244,17 @@ html_table_rows = r"""
                   <td>
 						<input type="checkbox" value="">
                   </td>
-				  
-               </tr>"""
+			   </tr>
+			   <tr>
+			   <td colspan="12" class="hidden_row">
+					<div id="demoMUTANT_ID" class="collapse">
+					<pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+&lt;p&gt;And another line of sample text here...&lt;/p&gt;
+</code></pre>
+						</div>					
+					</td>
+				</tr>
+			   """
 html_footer = r"""<br>
       
                
