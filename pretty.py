@@ -197,6 +197,12 @@ html_summary = r"""<div class = "visualizations">
                <th id="lineofCodeThatChanged">
                   Line of Code that Changed
                </th>
+			   <th id="snippetofCodeThatChangedBefore">
+                  Code Before
+               </th>
+			   <th id="snippetofCodeThatChangedAfter">
+                  Changed Code After
+               </th>
                <th = "EquivalentOrNot">
                Equivalent or Not
                </th>
@@ -214,6 +220,12 @@ html_table_rows = r"""
                   </td>
                   <td>
                      MUTANT_CODE_CHANGE_LINE
+                  </td>
+				  <td>
+                     MUTANT_CODE_CHANGE_BEFORE
+                  </td>
+				  <td>
+                     MUTANT_CODE_CHANGE_AFTER
                   </td>
                   <td>
                      MUTANT_EQUIVALENT
@@ -303,8 +315,14 @@ def add_data():
 	html_summary = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls1.iteritems(), html_summary)
 	print(killed_dict[str(1)])
 	print(diffs_dict[str(1)])
-	for i in range(1,len(killed_dict)):
-		repls2 = {'MUTANT_ID' : str(i), 'MUTANT_CODE_CHANGE_LINE' : diffs_dict[str(i)][1],'MUTANT_KILLED' : killed_dict[str(i)], 'MUTANT_EQUIVALENT' : "Not working rn"}
+	for i in range(1,len(killed_dict)+1):
+		print(killed_dict[str(i)])
+		repls2 = {'MUTANT_ID' : str(i), 'MUTANT_CODE_CHANGE_LINE' : diffs_dict[str(i)][1],
+		'MUTANT_KILLED' : 'Yes' if killed_dict[str(i)] == 'FAIL' else 'No',
+		'MUTANT_CODE_CHANGE_BEFORE' : diffs_dict[str(i)][2],
+		'MUTANT_CODE_CHANGE_AFTER' : diffs_dict[str(i)][3],
+		'MUTANT_EQUIVALENT' : "Not working rn"}
+		
 		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
 		#MUTANT_ID = i
 		#MUTANT_CODE_CHANGE_LINE = diffs_dict[i][1]
@@ -312,7 +330,7 @@ def add_data():
 		#MUTANT_EQUIVALENT = "Not working rn"
 	
 def build_html():
-	html_out = html_header+html_summary+html_table_rows+html_footer
+	html_out = html_header+html_summary+html_table_rows_built+html_footer
 	target = open("out/index.html", 'w')
 	target.write(html_out)
 	target.close()
