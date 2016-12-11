@@ -298,7 +298,10 @@ html_footer = r"""<br>
 
 html_table_rows_built = ""
 
+#hold the file and the path to reach it
 class_name = ''
+class_path = ''
+function_name = ''
 
 
 def read_summary():
@@ -324,6 +327,8 @@ def read_killed():
 def read_diff():
 	global diffs_dict
 	global class_name
+	global class_path
+	global function_name
 	diffs_dict = {}
 	with open(log_mutants_path) as f:
 		rows = f.readlines()
@@ -334,7 +339,10 @@ def read_diff():
 			#mutant id, weird value?, Line of Code, before code, after code
 			diffs_dict[temp[0]] = [temp[1],temp[5],diffs[0],diffs[1].rstrip()]
 			#Only modify once and add the java class name being tested
-			class_name = temp[4][temp[4].find(".")+1:temp[4].find("@")] + ".java" if class_name == '' else class_name 
+			class_name = temp[4][temp[4].find(".")+1:temp[4].find("@")] if class_name == '' else class_name 
+			class_path = 'src/' + temp[4][:temp[4].find("@")].replace('.','/').replace(class_name,'') if class_path == '' else class_path 
+			function_name = temp[4][temp[4].find("@")+1:] if function_name == '' else function_name
+	class_name += '.java'
 	print(diffs_dict['125'])
 	print(len(diffs_dict))
 
@@ -342,7 +350,7 @@ def add_data():
 	global html_summary
 	global html_table_rows_built
 	global html_footer
-	#replace with reduce
+	#replace using reduce
 	repls1 = {'TOTAL_MUTANTS' : summary_dict['MutantsGenerated'], 'TOTAL_TIME' : summary_dict['RuntimeAnalysisSeconds'],'CLASS_NAME' : class_name}
 	html_summary = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls1.iteritems(), html_summary)
 	print(killed_dict[str(1)])
@@ -368,10 +376,15 @@ def build_html():
 def update_html():
 	subprocess.call("sleep.sh", shell=True)
 
+#def readOriginal():
+	
+	
 def main():
 	read_summary()
 	read_killed()
 	read_diff()
+	print(class_path)
+	print(function_name)
 	add_data()
 	build_html()
 	
