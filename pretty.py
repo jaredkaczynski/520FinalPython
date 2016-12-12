@@ -551,8 +551,8 @@ html_table_rows = r"""
 					  <input type="checkbox" id="checkboxMUTANT_ID">
 				   </td>
 				</tr>
-				<tr class="row expand-child">
-					<td colspan="12" class="hidden_row">
+				<tr class="expand-child">
+					<td colspan="120" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordianMUTANT_ID">
 							<div class="col-md-6 collapsed" >
 							<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">ORIGINAL_SOURCE_CODE</code></pre>
