@@ -460,19 +460,19 @@ html_summary = r"""<div class = "visualizations">
          <br>
          <thead class ="myTable">
             <tr>
-               <th id="mutantid" class="col-md-2">
+               <th id="mutantid" class="col-md-1">
                   Mutant ID
                </th>
                <th id="killed" class="col-md-1">
                   Killed
                </th>
-               <th id="lineofCodeThatChanged" class="col-md-2">
+               <th id="lineofCodeThatChanged" class="col-md-1">
                   Line of Code that Changed
                </th>
-			   <th id="snippetofCodeThatChangedBefore" class="col-md-3">
+			   <th id="snippetofCodeThatChangedBefore" class="col-md-4">
                   Original Code
                </th>
-			   <th id="snippetofCodeThatChangedAfter" class="col-md-3">
+			   <th id="snippetofCodeThatChangedAfter" class="col-md-4">
                   Mutant Code
                </th>
                <th id= "EquivalentOrNot" class="col-md-1">
@@ -485,7 +485,7 @@ html_summary = r"""<div class = "visualizations">
          <tbody>
 	  """
 html_table_rows = r"""
-				<tr style="COLOR_CLASS">
+				<tr style="background-color:COLOR_CLASS">
 				   <td>
 					  MUTANT_ID
 					  <span class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#myModalMUTANT_ID"></span>
@@ -662,14 +662,25 @@ def add_data():
 	# print(diffs_dict[str(1)])
 	for i in range(1,len(diffs_dict)+1):
 		# print(killed_dict[str(i)])
+		tempvar = ''
+		tempcolor = ''
+		if killed_dict.get(str(i)) == 'FAIL':
+			tempvar = 'Yes'
+			tempcolor = '#eaffea'
+		elif killed_dict.get(str(i)) == 'LIVE':
+			tempvar = 'No'
+			tempcolor = '#ffecec'
+		else:
+			tempvar = "Not Covered"
+			tempcolor = '#D1C4E9'
 		repls2 = {'MUTANT_ID' : str(i), 'MUTANT_CODE_CHANGE_LINE' : diffs_dict[str(i)][1],
-		'MUTANT_KILLED' : 'Yes' if killed_dict.get(str(i)) == 'FAIL' else 'No',
+		'MUTANT_KILLED' : tempvar,
 		'MUTANT_CODE_CHANGE_BEFORE' : diffs_dict[str(i)][2],
 		'MUTANT_CODE_CHANGE_AFTER' : diffs_dict[str(i)][3],
 		'MUTANT_EQUIVALENT' : "Not working rn",
 		'ORIGINAL_SOURCE_CODE' : original_source_file,
 		'MUTANT_SOURCE_CODE': mutant_list[i],
-		'COLOR_CLASS': 'background-color:#eaffea' if killed_dict.get(str(i)) == 'FAIL' else 'background-color:#ffecec'}
+		'COLOR_CLASS': tempcolor}
 		
 		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
 	repls1 = {'MUTANTS_KILLED_ACTUAL' : summary_dict['MutantsKilled'], 'MUTANTS_ALIVE_ACTUAL' : summary_dict['MutantsLive'],
