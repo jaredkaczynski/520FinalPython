@@ -90,8 +90,8 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
    
    .hidden_row{
     padding: 0 !important;
-	padding-left: 3% !important;
-	padding-right: 3% !important;
+	padding-left: 1% !important;
+	padding-right: 1% !important;
 	border-top: 1px !important;
    }
    
@@ -528,11 +528,11 @@ html_table_rows = r"""
 				<tr>
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordianMUTANT_ID">
-							<div class="col-xs-6 collapsed" >
+							<div class="col-md-6 collapsed" >
 							<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">ORIGINAL_SOURCE_CODE</code></pre>
 							</code></pre>
 							</div>
-							<div class="col-xs-6 collapsed">
+							<div class="col-md-6 collapsed">
 							<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">MUTANT_SOURCE_CODE</code></pre>
 							</div>
 						</div>
@@ -715,12 +715,12 @@ def run_mutant():
 def readOriginal():
 	global original_source_file
 	source = open('src/' + class_path+class_name, 'r')
-	original_source_file = source.read()
+	original_source_file = source.read().rstrip() 
 	
 def readMutants():
 	global mutant_list
 	for i in range(1,len(diffs_dict)+1):
-		mutant_list[i] = (open('mutation_results/mutants/' + str(i) +'/' + class_path+class_name, 'r').read())
+		mutant_list[i] = (open('mutation_results/mutants/' + str(i) +'/' + class_path+class_name, 'r').read()).rstrip() 
 	
 	
 def main():
