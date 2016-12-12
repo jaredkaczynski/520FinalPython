@@ -506,8 +506,9 @@ html_summary = r"""<div class = "visualizations">
 	  """
 html_table_rows = r"""
 				<tr style="background-color:COLOR_CLASS">
-				   <td data-toggle="modal" data-backdrop="static" data-target="#myModalMUTANT_ID">
+				   <td data-toggle="collapse" data-target="#accordianMUTANT_ID">
 					  MUTANT_ID
+					  
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
 						 <div class="modal fade" id="myModalMUTANT_ID" role="dialog">
@@ -549,6 +550,23 @@ html_table_rows = r"""
 					  <input type="checkbox" id="checkboxMUTANT_ID">
 				   </td>
 				</tr>
+				<tr>
+					<td colspan="12" class="hidden_row">
+						<div class="row hidden_row panel-collapse collapse" id="accordianMUTANT_ID">
+							<div class="col-xs-6 collapsed" >
+							<pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+							&lt;p&gt;fuck&lt;/p&gt;
+							</code></pre>
+							</div>
+							<div class="col-xs-6 collapsed">
+							<pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+							&lt;p&gt;fuck&lt;/p&gt;
+							</code></pre>
+							</div>
+						</div>
+					</td>
+				</tr>
+				
 			   """
 html_footer = r"""
 				<br>
