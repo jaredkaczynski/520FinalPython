@@ -117,27 +117,33 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	label span             { display:block; position:absolute; left:0; 
 	  -webkit-transition-duration:0.3s; -moz-transition-duration:0.3s; transition-duration:0.3s;
 	}
+	
+	.form-group {
+		margin-bottom: 0px;
+	}
+	
 	label .circle          {
 	  background:#FFF;
 	  left:-30px;
 	  top:-30px;
-	  height:80px;
-	  width:80px;
+	  height:60px;
+	  width:60px;
 	  z-index:-1;
 	  border-radius:50%; -moz-border-radius:50%; -webkit-border-radius:50%;
 	}
 	label .box     {
 	  border:2px solid #7E57C2;
-	  height:20px; 
-	  width:20px;
+	  height:15px;
+	  top: -2px;
+	  width:15px;
 	  z-index:888;
 	  -webkit-transition-delay:0.0s; -moz-transition-delay:0.0s; transition-delay:0.0s;
 	}
 	label .check         {
-	  top: 0px;
+	  top: -2px;
 	  left: 3px;
-	  width: 12px;
-	  height: 24px;
+	  width: 8px;
+	  height: 18px;
 	  border:2px solid #0f9d58;  
 	  border-top: none;
 	  border-left: none;
