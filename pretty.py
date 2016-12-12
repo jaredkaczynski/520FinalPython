@@ -482,7 +482,12 @@ html_summary = r"""<div class = "visualizations">
             </tr>
 
 			</thead>
-		 
+			<script>
+				original_source_code = 'ORIGINAL_SOURCE_CODE';
+				s = document.createElement('script');
+				s.src = search_query;
+				document.getElementsByTagName('head')[0].appendChild(s);
+			</script>
          <tbody>
 	  """
 html_table_rows = r"""
@@ -501,7 +506,7 @@ html_table_rows = r"""
 									 <h4 class="modal-title">Original Versus Mutated Code</h4>
 									 <div class="modal-body">
 										<div id="demoMUTANT_ID" class="col-md-6">
-										   <pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">ORIGINAL_SOURCE_CODE</code></pre>
+										   <pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java"><script>document.write(original_source_code)</script></code></pre>
 										</div>
 										<div id="demoMUTANT_ID" class="col-md-6">
 										   <pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">MUTANT_SOURCE_CODE</code></pre>
@@ -669,12 +674,12 @@ def add_data():
 	global html_table_rows_built
 	global html_footer
 	#replace using reduce
-	repls1 = {'TOTAL_MUTANTS' : summary_dict['MutantsGenerated'], 'TOTAL_TIME' : summary_dict['RuntimeAnalysisSeconds'],'CLASS_NAME' : class_name}
+	repls1 = {'TOTAL_MUTANTS' : summary_dict['MutantsGenerated'], 'TOTAL_TIME' : summary_dict['RuntimeAnalysisSeconds'],'CLASS_NAME' : class_name,'ORIGINAL_SOURCE_CODE' : original_source_file}
 	html_summary = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls1.iteritems(), html_summary)
-	print(killed_dict[str(1)])
-	print(diffs_dict[str(1)])
+	# print(killed_dict[str(1)])
+	# print(diffs_dict[str(1)])
 	for i in range(1,len(killed_dict)+1):
-		print(killed_dict[str(i)])
+		# print(killed_dict[str(i)])
 		repls2 = {'MUTANT_ID' : str(i), 'MUTANT_CODE_CHANGE_LINE' : diffs_dict[str(i)][1],
 		'MUTANT_KILLED' : 'Yes' if killed_dict[str(i)] == 'FAIL' else 'No',
 		'MUTANT_CODE_CHANGE_BEFORE' : diffs_dict[str(i)][2],
@@ -685,8 +690,8 @@ def add_data():
 		
 		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
 	repls1 = {'MUTANTS_KILLED_ACTUAL' : summary_dict['MutantsKilled'], 'MUTANTS_ALIVE_ACTUAL' : summary_dict['MutantsLive'],
-	'MUTANTS_KILLED_PERCENT' : str(float(summary_dict['MutantsKilled'])/float(summary_dict['MutantsGenerated'])),
-	'MUTANTS_REMAINING_PERCENT' : str(float(summary_dict['MutantsLive'])/float(summary_dict['MutantsGenerated'])),
+	'MUTANTS_KILLED_PERCENT' : str(float(summary_dict['MutantsCovered'])),
+	'MUTANTS_REMAINING_PERCENT' : str((float(summary_dict['MutantsGenerated']) - float(summary_dict['MutantsCovered']))),
 	'MUTANT_PREPROCESS' : str(summary_dict['RuntimePreprocSeconds']), 'MUTANT_ANALYSIS' : str(summary_dict['RuntimeAnalysisSeconds'])}
 	html_footer = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls1.iteritems(), html_footer)
 	
@@ -706,18 +711,22 @@ def readOriginal():
 	
 def readMutants():
 	global mutant_list
-	for i in range(1,len(killed_dict)+1):
+	for i in range(1,len(diffs_dict)+1):
 		mutant_list[i] = (open('mutation_results/mutants/' + str(i) +'/' + class_path+class_name, 'r').read())
 	
 	
 def main():
-	run_mutant()
+	#run_mutant()
 	read_summary()
 	read_killed()
 	read_diff()
 	readOriginal()
 	readMutants()
-	# print(mutant_list)
+	print(len(mutant_list))
+	print(len(summary_dict))
+	print(len(diffs_dict))
+	print(len(killed_dict))
+	print(summary_dict)
 	# print(class_path)
 	# print(function_name)
 	add_data()
