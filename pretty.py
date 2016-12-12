@@ -109,7 +109,7 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	<style>
 	/* basic css */
 	input[type=checkbox]   { display:none; }
-	label, p               { padding-left:50px; }
+	label,p               { padding-left:50px; }
 	#check-awesome         { position:relative; }
 
 	/* checkbox css */
@@ -557,21 +557,21 @@ html_summary = r"""<div class = "visualizations">
          <br> 
          <div class = "well">
             <div class="row">
-               <div class="col-md-3 ">
-                  <p> Class Name</p>
+               <div class="col-md-3 " style="padding-left:0px">
+                  <p style="padding-left:0px"> Class Name</p>
                   <h4> <strong> CLASS_NAME </strong></h4>
                </div>
-			   <div class="col-md-3 ">
-                  <p> Method Name</p>
+			   <div class="col-md-3 " style="padding-left:0px">
+                  <p style="padding-left:0px"> Method Name</p>
                   <h4> <strong> METHOD_NAME </strong></h4>
                </div>
-               <div class="col-md-3 ">
-                  <p> Total Mutants 
+               <div class="col-md-3 " style="padding-left:0px">
+                  <p style="padding-left:0px"> Total Mutants 
                   <h4> <strong>TOTAL_MUTANTS</strong> </h4>
                   </p>
                </div>
-               <div class="col-md-3 " >
-                  <p> Analysis Time 
+               <div class="col-md-3" style="padding-left:0px">
+                  <p style="padding-left:0px"> Analysis Time 
                   <h4><strong>TOTAL_TIME Seconds</strong></h4>
                   </p> 
                </div>
