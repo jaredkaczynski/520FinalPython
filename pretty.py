@@ -576,13 +576,14 @@ html_footer = r"""
 				   var myChart = new Chart(ctx, {
 				   type: 'doughnut',
 				   data: {
-				   labels: ["Killed", "Unkilled",],
+				   labels: ["Killed", "Unkilled","Uncovered"],
 				   datasets: [{
 				   backgroundColor: [
 				   "#009688",
-				   "#D1C4E9"
+				   "#D1C4E9",
+				   "#C5CAE9"
 				   ],
-				   data: [MUTANTS_KILLED_ACTUAL,MUTANTS_ALIVE_ACTUAL]
+				   data: [MUTANTS_KILLED_ACTUAL,MUTANTS_ALIVE_ACTUAL,MUTANTS_REMAINING_PERCENT]
 				   }]
 				   }
 				   });
@@ -733,7 +734,7 @@ def readMutants():
 	
 	
 def main():
-	#run_mutant()
+	run_mutant()
 	read_summary()
 	read_killed()
 	read_diff()
