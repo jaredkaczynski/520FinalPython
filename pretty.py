@@ -482,12 +482,6 @@ html_summary = r"""<div class = "visualizations">
             </tr>
 
 			</thead>
-			<script>
-				original_source_code = 'ORIGINAL_SOURCE_CODE';
-				s = document.createElement('script');
-				s.src = search_query;
-				document.getElementsByTagName('head')[0].appendChild(s);
-			</script>
          <tbody>
 	  """
 html_table_rows = r"""
@@ -506,13 +500,15 @@ html_table_rows = r"""
 									 <h4 class="modal-title">Original Versus Mutated Code</h4>
 									 <div class="modal-body">
 										<div id="demoMUTANT_ID" class="col-md-6">
-										   <pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java"><script>document.write(original_source_code)</script></code></pre>
+										   <pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">ORIGINAL_SOURCE_CODE</code></pre>
 										</div>
 										<div id="demoMUTANT_ID" class="col-md-6">
 										   <pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">MUTANT_SOURCE_CODE</code></pre>
 										</div>
 									 </div>
 								  </div>
+								   <div class="modal-footer">
+								   </div>
 							   </div>
 							</div>
 						 </div>
@@ -533,20 +529,6 @@ html_table_rows = r"""
 				   <td>
 					  <input type="checkbox" value="">
 				   </td>
-				</tr>
-				<tr>
-				   <div class="row">
-					  <td colspan="3" class="hidden_row">
-						 <div id="demoMUTANT_ID" class="collapse">
-							<pre data-line='MUTANT_CODE_bak_CHANGE_LINE'><code class="language-java">ORIGINAL_bak_SOURCE_CODE</code></pre>
-						 </div>
-					  </td>
-					  <td colspan="3" class="hidden_row">
-						 <div id="demoMUTANT_ID" class="collapse">
-							<pre data-line='MUTANT_CODE_bak_CHANGE_LINE'><code class="language-java">MUTANT_bak_SOURCE_CODE</code></pre>
-						 </div>
-					  </td>
-				   </div>
 				</tr>
 			   """
 html_footer = r"""
@@ -678,10 +660,10 @@ def add_data():
 	html_summary = reduce(lambda a, keyvalue: a.replace(*keyvalue), repls1.iteritems(), html_summary)
 	# print(killed_dict[str(1)])
 	# print(diffs_dict[str(1)])
-	for i in range(1,len(killed_dict)+1):
+	for i in range(1,len(diffs_dict)+1):
 		# print(killed_dict[str(i)])
 		repls2 = {'MUTANT_ID' : str(i), 'MUTANT_CODE_CHANGE_LINE' : diffs_dict[str(i)][1],
-		'MUTANT_KILLED' : 'Yes' if killed_dict[str(i)] == 'FAIL' else 'No',
+		'MUTANT_KILLED' : 'Yes' if killed_dict.get(str(i)) == 'FAIL' else 'No',
 		'MUTANT_CODE_CHANGE_BEFORE' : diffs_dict[str(i)][2],
 		'MUTANT_CODE_CHANGE_AFTER' : diffs_dict[str(i)][3],
 		'MUTANT_EQUIVALENT' : "Not working rn",
