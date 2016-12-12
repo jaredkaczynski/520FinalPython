@@ -10,6 +10,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
+(function($){$.extend({tablesorter:new
+function(){var parsers=[],widgets=[];this.defaults={cssHeader:"header",cssAsc:"headerSortUp",cssDesc:"headerSortDown",cssChildRow:"expand-child",sortInitialOrder:"asc",sortMultiSortKey:"shiftKey",sortForce:null,sortAppend:null,sortLocaleCompare:true,textExtraction:"simple",parsers:{},widgets:[],widgetZebra:{css:["even","odd"]},headers:{},widthFixed:false,cancelSelection:true,sortList:[],headerList:[],dateFormat:"us",decimal:'/\.|\,/g',onRenderHeader:null,selectorHeaders:'thead th',debug:false};function benchmark(s,d){log(s+","+(new Date().getTime()-d.getTime())+"ms");}this.benchmark=benchmark;function log(s){if(typeof console!="undefined"&&typeof console.debug!="undefined"){console.log(s);}else{alert(s);}}function buildParserCache(table,$headers){if(table.config.debug){var parsersDebug="";}if(table.tBodies.length==0)return;var rows=table.tBodies[0].rows;if(rows[0]){var list=[],cells=rows[0].cells,l=cells.length;for(var i=0;i<l;i++){var p=false;if($.metadata&&($($headers[i]).metadata()&&$($headers[i]).metadata().sorter)){p=getParserById($($headers[i]).metadata().sorter);}else if((table.config.headers[i]&&table.config.headers[i].sorter)){p=getParserById(table.config.headers[i].sorter);}if(!p){p=detectParserForColumn(table,rows,-1,i);}if(table.config.debug){parsersDebug+="column:"+i+" parser:"+p.id+"\n";}list.push(p);}}if(table.config.debug){log(parsersDebug);}return list;};function detectParserForColumn(table,rows,rowIndex,cellIndex){var l=parsers.length,node=false,nodeValue=false,keepLooking=true;while(nodeValue==''&&keepLooking){rowIndex++;if(rows[rowIndex]){node=getNodeFromRowAndCellIndex(rows,rowIndex,cellIndex);nodeValue=trimAndGetNodeText(table.config,node);if(table.config.debug){log('Checking if value was empty on row:'+rowIndex);}}else{keepLooking=false;}}for(var i=1;i<l;i++){if(parsers[i].is(nodeValue,table,node)){return parsers[i];}}return parsers[0];}function getNodeFromRowAndCellIndex(rows,rowIndex,cellIndex){return rows[rowIndex].cells[cellIndex];}function trimAndGetNodeText(config,node){return $.trim(getElementText(config,node));}function getParserById(name){var l=parsers.length;for(var i=0;i<l;i++){if(parsers[i].id.toLowerCase()==name.toLowerCase()){return parsers[i];}}return false;}function buildCache(table){if(table.config.debug){var cacheTime=new Date();}var totalRows=(table.tBodies[0]&&table.tBodies[0].rows.length)||0,totalCells=(table.tBodies[0].rows[0]&&table.tBodies[0].rows[0].cells.length)||0,parsers=table.config.parsers,cache={row:[],normalized:[]};for(var i=0;i<totalRows;++i){var c=$(table.tBodies[0].rows[i]),cols=[];if(c.hasClass(table.config.cssChildRow)){cache.row[cache.row.length-1]=cache.row[cache.row.length-1].add(c);continue;}cache.row.push(c);for(var j=0;j<totalCells;++j){cols.push(parsers[j].format(getElementText(table.config,c[0].cells[j]),table,c[0].cells[j]));}cols.push(cache.normalized.length);cache.normalized.push(cols);cols=null;};if(table.config.debug){benchmark("Building cache for "+totalRows+" rows:",cacheTime);}return cache;};function getElementText(config,node){var text="";if(!node)return"";if(!config.supportsTextContent)config.supportsTextContent=node.textContent||false;if(config.textExtraction=="simple"){if(config.supportsTextContent){text=node.textContent;}else{if(node.childNodes[0]&&node.childNodes[0].hasChildNodes()){text=node.childNodes[0].innerHTML;}else{text=node.innerHTML;}}}else{if(typeof(config.textExtraction)=="function"){text=config.textExtraction(node);}else{text=$(node).text();}}return text;}function appendToTable(table,cache){if(table.config.debug){var appendTime=new Date()}var c=cache,r=c.row,n=c.normalized,totalRows=n.length,checkCell=(n[0].length-1),tableBody=$(table.tBodies[0]),rows=[];for(var i=0;i<totalRows;i++){var pos=n[i][checkCell];rows.push(r[pos]);if(!table.config.appender){var l=r[pos].length;for(var j=0;j<l;j++){tableBody[0].appendChild(r[pos][j]);}}}if(table.config.appender){table.config.appender(table,rows);}rows=null;if(table.config.debug){benchmark("Rebuilt table:",appendTime);}applyWidget(table);setTimeout(function(){$(table).trigger("sortEnd");},0);};function buildHeaders(table){if(table.config.debug){var time=new Date();}var meta=($.metadata)?true:false;var header_index=computeTableHeaderCellIndexes(table);$tableHeaders=$(table.config.selectorHeaders,table).each(function(index){this.column=header_index[this.parentNode.rowIndex+"-"+this.cellIndex];this.order=formatSortingOrder(table.config.sortInitialOrder);this.count=this.order;if(checkHeaderMetadata(this)||checkHeaderOptions(table,index))this.sortDisabled=true;if(checkHeaderOptionsSortingLocked(table,index))this.order=this.lockedOrder=checkHeaderOptionsSortingLocked(table,index);if(!this.sortDisabled){var $th=$(this).addClass(table.config.cssHeader);if(table.config.onRenderHeader)table.config.onRenderHeader.apply($th);}table.config.headerList[index]=this;});if(table.config.debug){benchmark("Built headers:",time);log($tableHeaders);}return $tableHeaders;};function computeTableHeaderCellIndexes(t){var matrix=[];var lookup={};var thead=t.getElementsByTagName('THEAD')[0];var trs=thead.getElementsByTagName('TR');for(var i=0;i<trs.length;i++){var cells=trs[i].cells;for(var j=0;j<cells.length;j++){var c=cells[j];var rowIndex=c.parentNode.rowIndex;var cellId=rowIndex+"-"+c.cellIndex;var rowSpan=c.rowSpan||1;var colSpan=c.colSpan||1
+var firstAvailCol;if(typeof(matrix[rowIndex])=="undefined"){matrix[rowIndex]=[];}for(var k=0;k<matrix[rowIndex].length+1;k++){if(typeof(matrix[rowIndex][k])=="undefined"){firstAvailCol=k;break;}}lookup[cellId]=firstAvailCol;for(var k=rowIndex;k<rowIndex+rowSpan;k++){if(typeof(matrix[k])=="undefined"){matrix[k]=[];}var matrixrow=matrix[k];for(var l=firstAvailCol;l<firstAvailCol+colSpan;l++){matrixrow[l]="x";}}}}return lookup;}function checkCellColSpan(table,rows,row){var arr=[],r=table.tHead.rows,c=r[row].cells;for(var i=0;i<c.length;i++){var cell=c[i];if(cell.colSpan>1){arr=arr.concat(checkCellColSpan(table,headerArr,row++));}else{if(table.tHead.length==1||(cell.rowSpan>1||!r[row+1])){arr.push(cell);}}}return arr;};function checkHeaderMetadata(cell){if(($.metadata)&&($(cell).metadata().sorter===false)){return true;};return false;}function checkHeaderOptions(table,i){if((table.config.headers[i])&&(table.config.headers[i].sorter===false)){return true;};return false;}function checkHeaderOptionsSortingLocked(table,i){if((table.config.headers[i])&&(table.config.headers[i].lockedOrder))return table.config.headers[i].lockedOrder;return false;}function applyWidget(table){var c=table.config.widgets;var l=c.length;for(var i=0;i<l;i++){getWidgetById(c[i]).format(table);}}function getWidgetById(name){var l=widgets.length;for(var i=0;i<l;i++){if(widgets[i].id.toLowerCase()==name.toLowerCase()){return widgets[i];}}};function formatSortingOrder(v){if(typeof(v)!="Number"){return(v.toLowerCase()=="desc")?1:0;}else{return(v==1)?1:0;}}function isValueInArray(v,a){var l=a.length;for(var i=0;i<l;i++){if(a[i][0]==v){return true;}}return false;}function setHeadersCss(table,$headers,list,css){$headers.removeClass(css[0]).removeClass(css[1]);var h=[];$headers.each(function(offset){if(!this.sortDisabled){h[this.column]=$(this);}});var l=list.length;for(var i=0;i<l;i++){h[list[i][0]].addClass(css[list[i][1]]);}}function fixColumnWidth(table,$headers){var c=table.config;if(c.widthFixed){var colgroup=$('<colgroup>');$("tr:first td",table.tBodies[0]).each(function(){colgroup.append($('<col>').css('width',$(this).width()));});$(table).prepend(colgroup);};}function updateHeaderSortCount(table,sortList){var c=table.config,l=sortList.length;for(var i=0;i<l;i++){var s=sortList[i],o=c.headerList[s[0]];o.count=s[1];o.count++;}}function multisort(table,sortList,cache){if(table.config.debug){var sortTime=new Date();}var dynamicExp="var sortWrapper = function(a,b) {",l=sortList.length;for(var i=0;i<l;i++){var c=sortList[i][0];var order=sortList[i][1];var s=(table.config.parsers[c].type=="text")?((order==0)?makeSortFunction("text","asc",c):makeSortFunction("text","desc",c)):((order==0)?makeSortFunction("numeric","asc",c):makeSortFunction("numeric","desc",c));var e="e"+i;dynamicExp+="var "+e+" = "+s;dynamicExp+="if("+e+") { return "+e+"; } ";dynamicExp+="else { ";}var orgOrderCol=cache.normalized[0].length-1;dynamicExp+="return a["+orgOrderCol+"]-b["+orgOrderCol+"];";for(var i=0;i<l;i++){dynamicExp+="}; ";}dynamicExp+="return 0; ";dynamicExp+="}; ";if(table.config.debug){benchmark("Evaling expression:"+dynamicExp,new Date());}eval(dynamicExp);cache.normalized.sort(sortWrapper);if(table.config.debug){benchmark("Sorting on "+sortList.toString()+" and dir "+order+" time:",sortTime);}return cache;};function makeSortFunction(type,direction,index){var a="a["+index+"]",b="b["+index+"]";if(type=='text'&&direction=='asc'){return"("+a+" == "+b+" ? 0 : ("+a+" === null ? Number.POSITIVE_INFINITY : ("+b+" === null ? Number.NEGATIVE_INFINITY : ("+a+" < "+b+") ? -1 : 1 )));";}else if(type=='text'&&direction=='desc'){return"("+a+" == "+b+" ? 0 : ("+a+" === null ? Number.POSITIVE_INFINITY : ("+b+" === null ? Number.NEGATIVE_INFINITY : ("+b+" < "+a+") ? -1 : 1 )));";}else if(type=='numeric'&&direction=='asc'){return"("+a+" === null && "+b+" === null) ? 0 :("+a+" === null ? Number.POSITIVE_INFINITY : ("+b+" === null ? Number.NEGATIVE_INFINITY : "+a+" - "+b+"));";}else if(type=='numeric'&&direction=='desc'){return"("+a+" === null && "+b+" === null) ? 0 :("+a+" === null ? Number.POSITIVE_INFINITY : ("+b+" === null ? Number.NEGATIVE_INFINITY : "+b+" - "+a+"));";}};function makeSortText(i){return"((a["+i+"] < b["+i+"]) ? -1 : ((a["+i+"] > b["+i+"]) ? 1 : 0));";};function makeSortTextDesc(i){return"((b["+i+"] < a["+i+"]) ? -1 : ((b["+i+"] > a["+i+"]) ? 1 : 0));";};function makeSortNumeric(i){return"a["+i+"]-b["+i+"];";};function makeSortNumericDesc(i){return"b["+i+"]-a["+i+"];";};function sortText(a,b){if(table.config.sortLocaleCompare)return a.localeCompare(b);return((a<b)?-1:((a>b)?1:0));};function sortTextDesc(a,b){if(table.config.sortLocaleCompare)return b.localeCompare(a);return((b<a)?-1:((b>a)?1:0));};function sortNumeric(a,b){return a-b;};function sortNumericDesc(a,b){return b-a;};function getCachedSortType(parsers,i){return parsers[i].type;};this.construct=function(settings){return this.each(function(){if(!this.tHead||!this.tBodies)return;var $this,$document,$headers,cache,config,shiftDown=0,sortOrder;this.config={};config=$.extend(this.config,$.tablesorter.defaults,settings);$this=$(this);$.data(this,"tablesorter",config);$headers=buildHeaders(this);this.config.parsers=buildParserCache(this,$headers);cache=buildCache(this);var sortCSS=[config.cssDesc,config.cssAsc];fixColumnWidth(this);$headers.click(function(e){var totalRows=($this[0].tBodies[0]&&$this[0].tBodies[0].rows.length)||0;if(!this.sortDisabled&&totalRows>0){$this.trigger("sortStart");var $cell=$(this);var i=this.column;this.order=this.count++%2;if(this.lockedOrder)this.order=this.lockedOrder;if(!e[config.sortMultiSortKey]){config.sortList=[];if(config.sortForce!=null){var a=config.sortForce;for(var j=0;j<a.length;j++){if(a[j][0]!=i){config.sortList.push(a[j]);}}}config.sortList.push([i,this.order]);}else{if(isValueInArray(i,config.sortList)){for(var j=0;j<config.sortList.length;j++){var s=config.sortList[j],o=config.headerList[s[0]];if(s[0]==i){o.count=s[1];o.count++;s[1]=o.count%2;}}}else{config.sortList.push([i,this.order]);}};setTimeout(function(){setHeadersCss($this[0],$headers,config.sortList,sortCSS);appendToTable($this[0],multisort($this[0],config.sortList,cache));},1);return false;}}).mousedown(function(){if(config.cancelSelection){this.onselectstart=function(){return false};return false;}});$this.bind("update",function(){var me=this;setTimeout(function(){me.config.parsers=buildParserCache(me,$headers);cache=buildCache(me);},1);}).bind("updateCell",function(e,cell){var config=this.config;var pos=[(cell.parentNode.rowIndex-1),cell.cellIndex];cache.normalized[pos[0]][pos[1]]=config.parsers[pos[1]].format(getElementText(config,cell),cell);}).bind("sorton",function(e,list){$(this).trigger("sortStart");config.sortList=list;var sortList=config.sortList;updateHeaderSortCount(this,sortList);setHeadersCss(this,$headers,sortList,sortCSS);appendToTable(this,multisort(this,sortList,cache));}).bind("appendCache",function(){appendToTable(this,cache);}).bind("applyWidgetId",function(e,id){getWidgetById(id).format(this);}).bind("applyWidgets",function(){applyWidget(this);});if($.metadata&&($(this).metadata()&&$(this).metadata().sortlist)){config.sortList=$(this).metadata().sortlist;}if(config.sortList.length>0){$this.trigger("sorton",[config.sortList]);}applyWidget(this);});};this.addParser=function(parser){var l=parsers.length,a=true;for(var i=0;i<l;i++){if(parsers[i].id.toLowerCase()==parser.id.toLowerCase()){a=false;}}if(a){parsers.push(parser);};};this.addWidget=function(widget){widgets.push(widget);};this.formatFloat=function(s){var i=parseFloat(s);return(isNaN(i))?0:i;};this.formatInt=function(s){var i=parseInt(s);return(isNaN(i))?0:i;};this.isDigit=function(s,config){return/^[-+]?\d*$/.test($.trim(s.replace(/[,.']/g,'')));};this.clearTableBody=function(table){if($.browser.msie){function empty(){while(this.firstChild)this.removeChild(this.firstChild);}empty.apply(table.tBodies[0]);}else{table.tBodies[0].innerHTML="";}};}});$.fn.extend({tablesorter:$.tablesorter.construct});var ts=$.tablesorter;ts.addParser({id:"text",is:function(s){return true;},format:function(s){return $.trim(s.toLocaleLowerCase());},type:"text"});ts.addParser({id:"digit",is:function(s,table){var c=table.config;return $.tablesorter.isDigit(s,c);},format:function(s){return $.tablesorter.formatFloat(s);},type:"numeric"});ts.addParser({id:"currency",is:function(s){return/^[£$€?.]/.test(s);},format:function(s){return $.tablesorter.formatFloat(s.replace(new RegExp(/[£$€]/g),""));},type:"numeric"});ts.addParser({id:"ipAddress",is:function(s){return/^\d{2,3}[\.]\d{2,3}[\.]\d{2,3}[\.]\d{2,3}$/.test(s);},format:function(s){var a=s.split("."),r="",l=a.length;for(var i=0;i<l;i++){var item=a[i];if(item.length==2){r+="0"+item;}else{r+=item;}}return $.tablesorter.formatFloat(r);},type:"numeric"});ts.addParser({id:"url",is:function(s){return/^(https?|ftp|file):\/\/$/.test(s);},format:function(s){return jQuery.trim(s.replace(new RegExp(/(https?|ftp|file):\/\//),''));},type:"text"});ts.addParser({id:"isoDate",is:function(s){return/^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/.test(s);},format:function(s){return $.tablesorter.formatFloat((s!="")?new Date(s.replace(new RegExp(/-/g),"/")).getTime():"0");},type:"numeric"});ts.addParser({id:"percent",is:function(s){return/\%$/.test($.trim(s));},format:function(s){return $.tablesorter.formatFloat(s.replace(new RegExp(/%/g),""));},type:"numeric"});ts.addParser({id:"usLongDate",is:function(s){return s.match(new RegExp(/^[A-Za-z]{3,10}\.? [0-9]{1,2}, ([0-9]{4}|'?[0-9]{2}) (([0-2]?[0-9]:[0-5][0-9])|([0-1]?[0-9]:[0-5][0-9]\s(AM|PM)))$/));},format:function(s){return $.tablesorter.formatFloat(new Date(s).getTime());},type:"numeric"});ts.addParser({id:"shortDate",is:function(s){return/\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}/.test(s);},format:function(s,table){var c=table.config;s=s.replace(/\-/g,"/");if(c.dateFormat=="us"){s=s.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/,"$3/$1/$2");}else if(c.dateFormat=="uk"){s=s.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/,"$3/$2/$1");}else if(c.dateFormat=="dd/mm/yy"||c.dateFormat=="dd-mm-yy"){s=s.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/,"$1/$2/$3");}return $.tablesorter.formatFloat(new Date(s).getTime());},type:"numeric"});ts.addParser({id:"time",is:function(s){return/^(([0-2]?[0-9]:[0-5][0-9])|([0-1]?[0-9]:[0-5][0-9]\s(am|pm)))$/.test(s);},format:function(s){return $.tablesorter.formatFloat(new Date("2000/01/01 "+s).getTime());},type:"numeric"});ts.addParser({id:"metadata",is:function(s){return false;},format:function(s,table,cell){var c=table.config,p=(!c.parserMetadataName)?'sortValue':c.parserMetadataName;return $(cell).metadata()[p];},type:"numeric"});ts.addWidget({id:"zebra",format:function(table){if(table.config.debug){var time=new Date();}var $tr,row=-1,odd;$("tr:visible",table.tBodies[0]).each(function(i){$tr=$(this);if(!$tr.hasClass(table.config.cssChildRow))row++;odd=(row%2==0);$tr.removeClass(table.config.widgetZebra.css[odd?0:1]).addClass(table.config.widgetZebra.css[odd?1:0])});if(table.config.debug){$.tablesorter.benchmark("Applying Zebra widget",time);}}});})(jQuery);</script> 
+	
+	<script>
 	$(document).ready(function() {
 	var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {};
 	var $checkboxes = $(':checkbox');
@@ -27,6 +32,14 @@
 	});
      
 	}); 
+	</script>
+	<script>
+	$(document).ready(function() 
+    { 
+        $("table").tablesorter({});
+    } 
+	); 
+		
 	</script>
 	<script>
 				   /*!
@@ -426,18 +439,22 @@ pre.line-numbers > code {
          <br> 
          <div class = "well">
             <div class="row">
-               <div class="col-md-4 ">
+               <div class="col-md-3 ">
                   <p> Class Name</p>
                   <h4> <strong> Triangle.java </strong></h4>
                </div>
-               <div class="col-md-4 ">
+			   <div class="col-md-3 ">
+                  <p> Method Name</p>
+                  <h4> <strong> classify </strong></h4>
+               </div>
+               <div class="col-md-3 ">
                   <p> Total Mutants 
                   <h4> <strong>150</strong> </h4>
                   </p>
                </div>
-               <div class="col-md-4 " >
+               <div class="col-md-3 " >
                   <p> Analysis Time 
-                  <h4><strong>0.6 Seconds</strong></h4>
+                  <h4><strong>0.7 Seconds</strong></h4>
                   </p> 
                </div>
             </div>
@@ -464,7 +481,7 @@ pre.line-numbers > code {
          </div>
       </div>
 	  <br>
-      <table class="table">
+      <table class="table tablesorter" id="mutantTable">
          <h1> Detailed Analysis </h1>
          <br>
          <thead class ="myTable">
@@ -513,7 +530,7 @@ pre.line-numbers > code {
 					  <input type="checkbox" id="checkbox1">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian1">
 							<div class="col-md-6 collapsed" >
@@ -650,7 +667,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox2">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian2">
 							<div class="col-md-6 collapsed" >
@@ -787,7 +804,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox3">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian3">
 							<div class="col-md-6 collapsed" >
@@ -924,7 +941,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox4">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian4">
 							<div class="col-md-6 collapsed" >
@@ -1061,7 +1078,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox5">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian5">
 							<div class="col-md-6 collapsed" >
@@ -1198,7 +1215,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox6">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian6">
 							<div class="col-md-6 collapsed" >
@@ -1335,7 +1352,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox7">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian7">
 							<div class="col-md-6 collapsed" >
@@ -1472,7 +1489,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox8">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian8">
 							<div class="col-md-6 collapsed" >
@@ -1609,7 +1626,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox9">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian9">
 							<div class="col-md-6 collapsed" >
@@ -1746,7 +1763,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox10">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian10">
 							<div class="col-md-6 collapsed" >
@@ -1883,7 +1900,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox11">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian11">
 							<div class="col-md-6 collapsed" >
@@ -2020,7 +2037,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox12">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian12">
 							<div class="col-md-6 collapsed" >
@@ -2157,7 +2174,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox13">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian13">
 							<div class="col-md-6 collapsed" >
@@ -2294,7 +2311,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox14">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian14">
 							<div class="col-md-6 collapsed" >
@@ -2431,7 +2448,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox15">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian15">
 							<div class="col-md-6 collapsed" >
@@ -2568,7 +2585,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox16">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian16">
 							<div class="col-md-6 collapsed" >
@@ -2705,7 +2722,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox17">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian17">
 							<div class="col-md-6 collapsed" >
@@ -2842,7 +2859,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox18">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian18">
 							<div class="col-md-6 collapsed" >
@@ -2979,7 +2996,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox19">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian19">
 							<div class="col-md-6 collapsed" >
@@ -3116,7 +3133,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox20">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian20">
 							<div class="col-md-6 collapsed" >
@@ -3253,7 +3270,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox21">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian21">
 							<div class="col-md-6 collapsed" >
@@ -3390,7 +3407,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox22">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian22">
 							<div class="col-md-6 collapsed" >
@@ -3527,7 +3544,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox23">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian23">
 							<div class="col-md-6 collapsed" >
@@ -3664,7 +3681,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox24">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian24">
 							<div class="col-md-6 collapsed" >
@@ -3801,7 +3818,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox25">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian25">
 							<div class="col-md-6 collapsed" >
@@ -3938,7 +3955,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox26">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian26">
 							<div class="col-md-6 collapsed" >
@@ -4075,7 +4092,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox27">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian27">
 							<div class="col-md-6 collapsed" >
@@ -4212,7 +4229,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox28">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian28">
 							<div class="col-md-6 collapsed" >
@@ -4349,7 +4366,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox29">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian29">
 							<div class="col-md-6 collapsed" >
@@ -4486,7 +4503,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox30">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian30">
 							<div class="col-md-6 collapsed" >
@@ -4623,7 +4640,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox31">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian31">
 							<div class="col-md-6 collapsed" >
@@ -4760,7 +4777,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox32">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian32">
 							<div class="col-md-6 collapsed" >
@@ -4897,7 +4914,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox33">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian33">
 							<div class="col-md-6 collapsed" >
@@ -5034,7 +5051,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox34">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian34">
 							<div class="col-md-6 collapsed" >
@@ -5171,7 +5188,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox35">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian35">
 							<div class="col-md-6 collapsed" >
@@ -5308,7 +5325,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox36">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian36">
 							<div class="col-md-6 collapsed" >
@@ -5445,7 +5462,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox37">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian37">
 							<div class="col-md-6 collapsed" >
@@ -5582,7 +5599,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox38">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian38">
 							<div class="col-md-6 collapsed" >
@@ -5719,7 +5736,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox39">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian39">
 							<div class="col-md-6 collapsed" >
@@ -5856,7 +5873,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox40">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian40">
 							<div class="col-md-6 collapsed" >
@@ -5993,7 +6010,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox41">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian41">
 							<div class="col-md-6 collapsed" >
@@ -6130,7 +6147,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox42">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian42">
 							<div class="col-md-6 collapsed" >
@@ -6267,7 +6284,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox43">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian43">
 							<div class="col-md-6 collapsed" >
@@ -6404,7 +6421,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox44">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian44">
 							<div class="col-md-6 collapsed" >
@@ -6541,7 +6558,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox45">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian45">
 							<div class="col-md-6 collapsed" >
@@ -6678,7 +6695,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox46">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian46">
 							<div class="col-md-6 collapsed" >
@@ -6815,7 +6832,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox47">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian47">
 							<div class="col-md-6 collapsed" >
@@ -6952,7 +6969,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox48">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian48">
 							<div class="col-md-6 collapsed" >
@@ -7089,7 +7106,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox49">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian49">
 							<div class="col-md-6 collapsed" >
@@ -7226,7 +7243,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox50">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian50">
 							<div class="col-md-6 collapsed" >
@@ -7363,7 +7380,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox51">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian51">
 							<div class="col-md-6 collapsed" >
@@ -7500,7 +7517,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox52">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian52">
 							<div class="col-md-6 collapsed" >
@@ -7637,7 +7654,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox53">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian53">
 							<div class="col-md-6 collapsed" >
@@ -7774,7 +7791,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox54">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian54">
 							<div class="col-md-6 collapsed" >
@@ -7911,7 +7928,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox55">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian55">
 							<div class="col-md-6 collapsed" >
@@ -8048,7 +8065,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox56">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian56">
 							<div class="col-md-6 collapsed" >
@@ -8185,7 +8202,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox57">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian57">
 							<div class="col-md-6 collapsed" >
@@ -8322,7 +8339,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox58">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian58">
 							<div class="col-md-6 collapsed" >
@@ -8459,7 +8476,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox59">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian59">
 							<div class="col-md-6 collapsed" >
@@ -8596,7 +8613,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox60">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian60">
 							<div class="col-md-6 collapsed" >
@@ -8733,7 +8750,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox61">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian61">
 							<div class="col-md-6 collapsed" >
@@ -8870,7 +8887,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox62">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian62">
 							<div class="col-md-6 collapsed" >
@@ -9007,7 +9024,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox63">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian63">
 							<div class="col-md-6 collapsed" >
@@ -9144,7 +9161,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox64">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian64">
 							<div class="col-md-6 collapsed" >
@@ -9281,7 +9298,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox65">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian65">
 							<div class="col-md-6 collapsed" >
@@ -9418,7 +9435,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox66">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian66">
 							<div class="col-md-6 collapsed" >
@@ -9555,7 +9572,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox67">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian67">
 							<div class="col-md-6 collapsed" >
@@ -9692,7 +9709,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox68">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian68">
 							<div class="col-md-6 collapsed" >
@@ -9829,7 +9846,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox69">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian69">
 							<div class="col-md-6 collapsed" >
@@ -9966,7 +9983,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox70">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian70">
 							<div class="col-md-6 collapsed" >
@@ -10103,7 +10120,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox71">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian71">
 							<div class="col-md-6 collapsed" >
@@ -10240,7 +10257,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox72">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian72">
 							<div class="col-md-6 collapsed" >
@@ -10377,7 +10394,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox73">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian73">
 							<div class="col-md-6 collapsed" >
@@ -10514,7 +10531,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox74">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian74">
 							<div class="col-md-6 collapsed" >
@@ -10651,7 +10668,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox75">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian75">
 							<div class="col-md-6 collapsed" >
@@ -10788,7 +10805,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox76">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian76">
 							<div class="col-md-6 collapsed" >
@@ -10925,7 +10942,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox77">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian77">
 							<div class="col-md-6 collapsed" >
@@ -11062,7 +11079,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox78">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian78">
 							<div class="col-md-6 collapsed" >
@@ -11199,7 +11216,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox79">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian79">
 							<div class="col-md-6 collapsed" >
@@ -11336,7 +11353,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox80">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian80">
 							<div class="col-md-6 collapsed" >
@@ -11473,7 +11490,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox81">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian81">
 							<div class="col-md-6 collapsed" >
@@ -11610,7 +11627,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox82">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian82">
 							<div class="col-md-6 collapsed" >
@@ -11747,7 +11764,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox83">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian83">
 							<div class="col-md-6 collapsed" >
@@ -11884,7 +11901,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox84">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian84">
 							<div class="col-md-6 collapsed" >
@@ -12021,7 +12038,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox85">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian85">
 							<div class="col-md-6 collapsed" >
@@ -12158,7 +12175,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox86">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian86">
 							<div class="col-md-6 collapsed" >
@@ -12295,7 +12312,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox87">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian87">
 							<div class="col-md-6 collapsed" >
@@ -12432,7 +12449,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox88">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian88">
 							<div class="col-md-6 collapsed" >
@@ -12569,7 +12586,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox89">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian89">
 							<div class="col-md-6 collapsed" >
@@ -12706,7 +12723,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox90">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian90">
 							<div class="col-md-6 collapsed" >
@@ -12843,7 +12860,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox91">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian91">
 							<div class="col-md-6 collapsed" >
@@ -12980,7 +12997,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox92">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian92">
 							<div class="col-md-6 collapsed" >
@@ -13117,7 +13134,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox93">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian93">
 							<div class="col-md-6 collapsed" >
@@ -13254,7 +13271,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox94">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian94">
 							<div class="col-md-6 collapsed" >
@@ -13391,7 +13408,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox95">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian95">
 							<div class="col-md-6 collapsed" >
@@ -13528,7 +13545,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox96">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian96">
 							<div class="col-md-6 collapsed" >
@@ -13665,7 +13682,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox97">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian97">
 							<div class="col-md-6 collapsed" >
@@ -13802,7 +13819,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox98">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian98">
 							<div class="col-md-6 collapsed" >
@@ -13939,7 +13956,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox99">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian99">
 							<div class="col-md-6 collapsed" >
@@ -14076,7 +14093,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox100">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian100">
 							<div class="col-md-6 collapsed" >
@@ -14213,7 +14230,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox101">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian101">
 							<div class="col-md-6 collapsed" >
@@ -14350,7 +14367,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox102">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian102">
 							<div class="col-md-6 collapsed" >
@@ -14487,7 +14504,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox103">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian103">
 							<div class="col-md-6 collapsed" >
@@ -14624,7 +14641,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox104">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian104">
 							<div class="col-md-6 collapsed" >
@@ -14761,7 +14778,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox105">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian105">
 							<div class="col-md-6 collapsed" >
@@ -14898,7 +14915,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox106">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian106">
 							<div class="col-md-6 collapsed" >
@@ -15035,7 +15052,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox107">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian107">
 							<div class="col-md-6 collapsed" >
@@ -15172,7 +15189,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox108">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian108">
 							<div class="col-md-6 collapsed" >
@@ -15309,7 +15326,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox109">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian109">
 							<div class="col-md-6 collapsed" >
@@ -15446,7 +15463,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox110">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian110">
 							<div class="col-md-6 collapsed" >
@@ -15583,7 +15600,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox111">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian111">
 							<div class="col-md-6 collapsed" >
@@ -15720,7 +15737,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox112">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian112">
 							<div class="col-md-6 collapsed" >
@@ -15857,7 +15874,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox113">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian113">
 							<div class="col-md-6 collapsed" >
@@ -15994,7 +16011,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox114">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian114">
 							<div class="col-md-6 collapsed" >
@@ -16131,7 +16148,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox115">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian115">
 							<div class="col-md-6 collapsed" >
@@ -16268,7 +16285,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox116">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian116">
 							<div class="col-md-6 collapsed" >
@@ -16405,7 +16422,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox117">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian117">
 							<div class="col-md-6 collapsed" >
@@ -16542,7 +16559,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox118">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian118">
 							<div class="col-md-6 collapsed" >
@@ -16679,7 +16696,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox119">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian119">
 							<div class="col-md-6 collapsed" >
@@ -16816,7 +16833,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox120">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian120">
 							<div class="col-md-6 collapsed" >
@@ -16953,7 +16970,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox121">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian121">
 							<div class="col-md-6 collapsed" >
@@ -17090,7 +17107,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox122">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian122">
 							<div class="col-md-6 collapsed" >
@@ -17227,7 +17244,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox123">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian123">
 							<div class="col-md-6 collapsed" >
@@ -17364,7 +17381,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox124">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian124">
 							<div class="col-md-6 collapsed" >
@@ -17501,7 +17518,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox125">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian125">
 							<div class="col-md-6 collapsed" >
@@ -17638,7 +17655,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox126">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian126">
 							<div class="col-md-6 collapsed" >
@@ -17775,7 +17792,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox127">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian127">
 							<div class="col-md-6 collapsed" >
@@ -17912,7 +17929,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox128">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian128">
 							<div class="col-md-6 collapsed" >
@@ -18049,7 +18066,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox129">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian129">
 							<div class="col-md-6 collapsed" >
@@ -18186,7 +18203,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox130">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian130">
 							<div class="col-md-6 collapsed" >
@@ -18323,7 +18340,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox131">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian131">
 							<div class="col-md-6 collapsed" >
@@ -18460,7 +18477,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox132">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian132">
 							<div class="col-md-6 collapsed" >
@@ -18597,7 +18614,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox133">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian133">
 							<div class="col-md-6 collapsed" >
@@ -18734,7 +18751,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox134">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian134">
 							<div class="col-md-6 collapsed" >
@@ -18871,7 +18888,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox135">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian135">
 							<div class="col-md-6 collapsed" >
@@ -19008,7 +19025,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox136">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian136">
 							<div class="col-md-6 collapsed" >
@@ -19145,7 +19162,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox137">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian137">
 							<div class="col-md-6 collapsed" >
@@ -19282,7 +19299,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox138">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian138">
 							<div class="col-md-6 collapsed" >
@@ -19419,7 +19436,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox139">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian139">
 							<div class="col-md-6 collapsed" >
@@ -19556,7 +19573,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox140">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian140">
 							<div class="col-md-6 collapsed" >
@@ -19693,7 +19710,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox141">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian141">
 							<div class="col-md-6 collapsed" >
@@ -19830,7 +19847,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox142">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian142">
 							<div class="col-md-6 collapsed" >
@@ -19967,7 +19984,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox143">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian143">
 							<div class="col-md-6 collapsed" >
@@ -20104,7 +20121,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox144">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian144">
 							<div class="col-md-6 collapsed" >
@@ -20241,7 +20258,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox145">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian145">
 							<div class="col-md-6 collapsed" >
@@ -20378,7 +20395,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox146">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian146">
 							<div class="col-md-6 collapsed" >
@@ -20515,7 +20532,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox147">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian147">
 							<div class="col-md-6 collapsed" >
@@ -20652,7 +20669,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox148">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian148">
 							<div class="col-md-6 collapsed" >
@@ -20789,7 +20806,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox149">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian149">
 							<div class="col-md-6 collapsed" >
@@ -20926,7 +20943,7 @@ public class Triangle {
 					  <input type="checkbox" id="checkbox150">
 				   </td>
 				</tr>
-				<tr>
+				<tr class="row expand-child">
 					<td colspan="12" class="hidden_row">
 						<div class="row panel-collapse collapse" id="accordian150">
 							<div class="col-md-6 collapsed" >
@@ -21094,13 +21111,13 @@ public class Triangle {
 						 "#009688"
 						 ],
 				   
-						 data: [0.09]
+						 data: [0.11]
 				   },{
 				   label: "Analysis",
 						 backgroundColor: [
 						 "#D1C4E9"
 						 ],
-						 data: [0.6]
+						 data: [0.7]
 						 }]
 						 }
 						 });
