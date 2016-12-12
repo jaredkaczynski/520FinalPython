@@ -10,7 +10,7 @@ import cgitb; cgitb.enable()
 import re
 import subprocess
 
-
+debug = False;
 killed_mutants_dir = "mutation_results/killed.csv"
 summary_mutants_dir = "mutation_results/summary.csv"
 log_mutants_path = "mutation_results/mutants.log"
@@ -98,11 +98,26 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
    .myTable tr th{
      background-color: #673AB7;
 	 color: white;
-   
    }
-
-   
-
+	
+	::-webkit-scrollbar-track {
+		background-color: #EDE7F6;
+	}
+	
+	::-webkit-scrollbar-thumb {
+		background-color: #D1C4E9;
+	}	
+	
+	::-webkit-scrollbar-thumb:hover {
+		background-color: #B39DDB;
+	}
+	
+	::-webkit-scrollbar {
+		width: 5px;
+		border-radius: 10px;
+	}
+ 
+	
 	.navbar-custom {
 		color: #FFFFFF;
 		background-color: #673AB7;
@@ -447,7 +462,7 @@ html_summary = r"""<div class = "visualizations">
                </div>
             </div>
          </div>
-         <br>
+
          <div class = "well">
             <div class="row">
                <div class="col-md-4">
@@ -467,14 +482,8 @@ html_summary = r"""<div class = "visualizations">
                </div>
             </div>
          </div>
-         </br>
-         <br>
-         <br>
       </div>
 	  <br>
-	  
-	  <br>
-      <br>
       <table class="table">
          <h1> Detailed Analysis </h1>
          <br>
@@ -567,9 +576,6 @@ html_footer = r"""
 				   var myChart = new Chart(ctx, {
 				   type: 'doughnut',
 				   data: {
-				   options: {
-				   rotation: (-0.5 * Math.PI)
-				   },
 				   labels: ["Killed", "Unkilled",],
 				   datasets: [{
 				   backgroundColor: [
@@ -632,7 +638,8 @@ def read_summary():
 		#Put each element of the summary into a dict in key column value row format
 		for k, v in summary_dict.iteritems():
     			print k, v
-	print((summary_dict))
+	if debug:
+		print((summary_dict))
 
 def read_killed():
 	global killed_dict
@@ -641,7 +648,8 @@ def read_killed():
 		reader = csv.DictReader(f);
 		for row in reader:
 			killed_dict[row['MutantNo']] = row['[FAIL | TIME | EXC | LIVE]']
-	print(killed_dict)
+	if debug:
+		print(killed_dict)
 
 def read_diff():
 	global diffs_dict
@@ -662,8 +670,9 @@ def read_diff():
 			class_path = temp[4][:temp[4].find("@")].replace('.','/').replace(class_name,'') if class_path == '' else class_path 
 			function_name = temp[4][temp[4].find("@")+1:] if function_name == '' else function_name
 	class_name += '.java'
-	print(diffs_dict['125'])
-	print(len(diffs_dict))
+	if debug:
+		print(diffs_dict['125'])
+		print(len(diffs_dict))
 
 def add_data():
 	global html_summary
@@ -730,13 +739,14 @@ def main():
 	read_diff()
 	readOriginal()
 	readMutants()
-	print(len(mutant_list))
-	print(len(summary_dict))
-	print(len(diffs_dict))
-	print(len(killed_dict))
-	print(summary_dict)
-	# print(class_path)
-	# print(function_name)
+	if debug:
+		print(len(mutant_list))
+		print(len(summary_dict))
+		print(len(diffs_dict))
+		print(len(killed_dict))
+		print(summary_dict)
+		print(class_path)
+		print(function_name)
 	add_data()
 	build_html()
 	
