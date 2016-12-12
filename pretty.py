@@ -48,6 +48,8 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	
    }
    
+
+   
    .hidden_row{
     padding: 0 !important;
 	padding-left: 3% !important;
@@ -466,11 +468,45 @@ html_summary = r"""<div class = "visualizations">
          <tbody>
 	  """
 html_table_rows = r"""
-				<tr data-toggle="collapse" data-target="#demoMUTANT_ID">
+				<tr data-target="#demoMUTANT_ID">
                   <td>
                      MUTANT_ID
-					 <span class="glyphicon glyphicon-eye-open" data-toggle="collapse" data-target="#demo"></span>
-                  </td>
+<div class = "viewExpandCode">
+
+ <span class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#myModal"></span>
+ 
+ 
+ 
+ 
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="width:100%">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+						<div id="demoMUTANT_ID" class="col-md-6">
+						<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">ORIGINAL_SOURCE_CODE</code></pre>
+						</div>					
+					
+						<div id="demoMUTANT_ID" class="col-md-6">
+						<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">MUTANT_SOURCE_CODE</code></pre>
+						</div>					
+				
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>						
+				  </td>
                   <td>
                      MUTANT_KILLED
                   </td>
@@ -493,12 +529,12 @@ html_table_rows = r"""
 				
 					<td colspan="3" class="hidden_row">
 						<div id="demoMUTANT_ID" class="collapse">
-						<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">ORIGINAL_SOURCE_CODE</code></pre>
+						<pre data-line='MUTANT_CODE_bak_CHANGE_LINE'><code class="language-java">ORIGINAL_bak_SOURCE_CODE</code></pre>
 						</div>					
 					</td>
 					<td colspan="3" class="hidden_row">
 						<div id="demoMUTANT_ID" class="collapse">
-						<pre data-line='MUTANT_CODE_CHANGE_LINE'><code class="language-java">MUTANT_SOURCE_CODE</code></pre>
+						<pre data-line='MUTANT_CODE_bak_CHANGE_LINE'><code class="language-java">MUTANT_bak_SOURCE_CODE</code></pre>
 						</div>					
 					</td>
 					</div>
