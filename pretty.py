@@ -411,7 +411,7 @@ html_summary = r"""<div class = "visualizations">
          <br> 
          <div class = "well">
             <div class="row">
-               <div class="col-md-4 "  align="center">
+               <div class="col-md-4"  align="center">
                   <p> Class Name</p>
                   <h4> <strong> CLASS_NAME </strong></h4>
                </div>
@@ -431,7 +431,7 @@ html_summary = r"""<div class = "visualizations">
          <div class = "well">
             <div class="row">
                <div class="col-md-4">
-                  <h4 align="center"> <strong>Mutation Score </strong></h4>
+                  <h4 align="center"> <strong>Mutation Score</strong></h4>
                   <br>
                   <canvas id="mutationScore"></canvas>
                </div>
@@ -485,7 +485,7 @@ html_summary = r"""<div class = "visualizations">
          <tbody>
 	  """
 html_table_rows = r"""
-				<tr>
+				<tr style="COLOR_CLASS">
 				   <td>
 					  MUTANT_ID
 					  <span class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#myModalMUTANT_ID"></span>
@@ -668,7 +668,8 @@ def add_data():
 		'MUTANT_CODE_CHANGE_AFTER' : diffs_dict[str(i)][3],
 		'MUTANT_EQUIVALENT' : "Not working rn",
 		'ORIGINAL_SOURCE_CODE' : original_source_file,
-		'MUTANT_SOURCE_CODE': mutant_list[i]}
+		'MUTANT_SOURCE_CODE': mutant_list[i],
+		'COLOR_CLASS': 'background-color:#eaffea' if killed_dict.get(str(i)) == 'FAIL' else 'background-color:#ffecec'}
 		
 		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
 	repls1 = {'MUTANTS_KILLED_ACTUAL' : summary_dict['MutantsKilled'], 'MUTANTS_ALIVE_ACTUAL' : summary_dict['MutantsLive'],
