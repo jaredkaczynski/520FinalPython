@@ -23,7 +23,7 @@ var firstAvailCol;if(typeof(matrix[rowIndex])=="undefined"){matrix[rowIndex]=[];
 		$checkboxes.each(function(){
 			checkboxValues[this.id] = this.checked;
 		});
-		console.log(JSON.stringify(checkboxValues));
+		console.log("Checkbox Update");
 		localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
 	});
 	
@@ -37,6 +37,25 @@ var firstAvailCol;if(typeof(matrix[rowIndex])=="undefined"){matrix[rowIndex]=[];
 	$(document).ready(function() 
     { 
         $("table").tablesorter({});
+		// per css-tricks restarting css animations
+		// http://css-tricks.com/restart-css-animation/
+		$('label').click(function() {
+		  
+		  // find the first span which is our circle/bubble
+		  var el = $(this).children('span:first-child');
+		  if(!el.hasClass('check'))
+		  // add the bubble class (we do this so it doesnt show on page load)
+		  el.addClass('circle');
+		  
+		  // clone it
+		  var newone = el.clone(true);  
+		  
+		  // add the cloned version before our original
+		  el.before(newone);  
+		  
+		  // remove the original so that it is ready to run on next click
+		  $("." + el.attr("class") + ":last").remove();
+		}); 
     } 
 	); 
 		
@@ -70,6 +89,84 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	</script>
 	
 	<style>
+	/* basic css */
+	input[type=checkbox]   { display:none; }
+	label, p               { padding-left:50px; }
+	#check-awesome         { position:relative; }
+
+	/* checkbox css */
+	label                  { cursor:pointer; }
+	label span             { display:block; position:absolute; left:0; 
+	  -webkit-transition-duration:0.3s; -moz-transition-duration:0.3s; transition-duration:0.3s;
+	}
+	label .circle          {
+	  background:#FFF;
+	  left:-30px;
+	  top:-30px;
+	  height:80px;
+	  width:80px;
+	  z-index:-1;
+	  border-radius:50%; -moz-border-radius:50%; -webkit-border-radius:50%;
+	}
+	label .box     {
+	  border:2px solid #7E57C2;
+	  height:20px; 
+	  width:20px;
+	  z-index:888;
+	  -webkit-transition-delay:0.0s; -moz-transition-delay:0.0s; transition-delay:0.0s;
+	}
+	label .check         {
+	  top: 0px;
+	  left: 3px;
+	  width: 12px;
+	  height: 24px;
+	  border:2px solid #0f9d58;  
+	  border-top: none;
+	  border-left: none;
+	  opacity:0; 
+	  z-index:888;
+	  -webkit-transform:rotate(180deg); -moz-transform:rotate(180deg); transform:rotate(180deg);
+	  -webkit-transition-delay:0.0s; -moz-transition-delay:0.0s; transition-delay:0.0s;
+	}
+
+	/* handling click events */
+
+	/* when checkbox is checked */
+	label .circle {
+	  -webkit-animation   :growCircle 0.3s ease;
+	  -moz-animation      :growCircle 0.3s ease;
+	  animation           :growCircle 0.3s ease;
+	}
+	input[type=checkbox]:checked ~ label .box { 
+	  opacity:0;
+	  -webkit-transform   :scale(0) rotate(-180deg);
+	  -moz-transform        :scale(0) rotate(-180deg);
+	  transform                 :scale(0) rotate(-180deg);
+	}
+	input[type=checkbox]:checked ~ label .check {
+	  opacity:1; 
+	  -webkit-transform   :scale(1) rotate(45deg);
+	  -moz-transform      :scale(1) rotate(45deg);
+	  transform           :scale(1) rotate(45deg);
+	}
+
+	/* bubble animation */
+
+	@-webkit-keyframes growCircle {
+	  0%, 100%   { -webkit-transform:scale(0); }
+	  70%        { background:#DDD; -webkit-transform:scale(1.25); }
+	}
+	@-moz-keyframes growCircle {
+	  0%, 100%   { -moz-transform:scale(0); }
+	  70%        { background:#DDD; -moz-transform:scale(1.25); }
+	}
+	@keyframes growCircle {
+	  0%, 100%   { transform:scale(0); }
+	  70%        { background:#DDD; transform:scale(1.25); }
+	}
+	</style>
+	
+	<style>
 	  @import url('https://fonts.googleapis.com/css?family=Lato|Roboto');
 
    body{
@@ -93,6 +190,7 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
    .myTable tr th{
      background-color: #673AB7;
 	 color: white;
+	 height: 2px;
    }
 	
 	::-webkit-scrollbar-track {
@@ -454,7 +552,7 @@ pre.line-numbers > code {
                </div>
                <div class="col-md-3 " >
                   <p> Analysis Time 
-                  <h4><strong>2.4 Seconds</strong></h4>
+                  <h4><strong>2.2 Seconds</strong></h4>
                   </p> 
                </div>
             </div>
@@ -527,8 +625,15 @@ pre.line-numbers > code {
 					   1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox1">
-				   </td>
+						<label for="checkbox1">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -664,8 +769,15 @@ public class Triangle {
 					   -1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox2">
-				   </td>
+						<label for="checkbox2">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -801,8 +913,15 @@ public class Triangle {
 					   a < 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox3">
-				   </td>
+						<label for="checkbox3">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -938,8 +1057,15 @@ public class Triangle {
 					   a == 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox4">
-				   </td>
+						<label for="checkbox4">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -1075,8 +1201,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox5">
-				   </td>
+						<label for="checkbox5">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -1212,8 +1345,15 @@ public class Triangle {
 					   1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox6">
-				   </td>
+						<label for="checkbox6">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -1349,8 +1489,15 @@ public class Triangle {
 					   -1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox7">
-				   </td>
+						<label for="checkbox7">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -1486,8 +1633,15 @@ public class Triangle {
 					   b < 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox8">
-				   </td>
+						<label for="checkbox8">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -1623,8 +1777,15 @@ public class Triangle {
 					   b == 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox9">
-				   </td>
+						<label for="checkbox9">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -1760,8 +1921,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox10">
-				   </td>
+						<label for="checkbox10">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -1897,8 +2065,15 @@ public class Triangle {
 					   a <= 0 != b <= 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox11">
-				   </td>
+						<label for="checkbox11">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -2034,8 +2209,15 @@ public class Triangle {
 					   a <= 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox12">
-				   </td>
+						<label for="checkbox12">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -2171,8 +2353,15 @@ public class Triangle {
 					   b <= 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox13">
-				   </td>
+						<label for="checkbox13">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -2308,8 +2497,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox14">
-				   </td>
+						<label for="checkbox14">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -2445,8 +2641,15 @@ public class Triangle {
 					   1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox15">
-				   </td>
+						<label for="checkbox15">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -2582,8 +2785,15 @@ public class Triangle {
 					   -1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox16">
-				   </td>
+						<label for="checkbox16">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -2719,8 +2929,15 @@ public class Triangle {
 					   c < 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox17">
-				   </td>
+						<label for="checkbox17">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -2856,8 +3073,15 @@ public class Triangle {
 					   c == 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox18">
-				   </td>
+						<label for="checkbox18">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -2993,8 +3217,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox19">
-				   </td>
+						<label for="checkbox19">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -3130,8 +3361,15 @@ public class Triangle {
 					   (a <= 0 || b <= 0) != c <= 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox20">
-				   </td>
+						<label for="checkbox20">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -3267,8 +3505,15 @@ public class Triangle {
 					   a <= 0 || b <= 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox21">
-				   </td>
+						<label for="checkbox21">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -3404,8 +3649,15 @@ public class Triangle {
 					   c <= 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox22">
-				   </td>
+						<label for="checkbox22">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -3541,8 +3793,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox23">
-				   </td>
+						<label for="checkbox23">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -3678,8 +3937,15 @@ public class Triangle {
 					   return null;
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox24">
-				   </td>
+						<label for="checkbox24">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -3815,8 +4081,15 @@ public class Triangle {
 					   1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox25">
-				   </td>
+						<label for="checkbox25">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -3952,8 +4225,15 @@ public class Triangle {
 					   -1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox26">
-				   </td>
+						<label for="checkbox26">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -4089,8 +4369,15 @@ public class Triangle {
 					   a <= b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox27">
-				   </td>
+						<label for="checkbox27">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -4226,8 +4513,15 @@ public class Triangle {
 					   a >= b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox28">
-				   </td>
+						<label for="checkbox28">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -4363,8 +4657,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox29">
-				   </td>
+						<label for="checkbox29">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -4500,8 +4801,15 @@ public class Triangle {
 					   0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox30">
-				   </td>
+						<label for="checkbox30">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -4637,8 +4945,15 @@ public class Triangle {
 					   -1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox31">
-				   </td>
+						<label for="checkbox31">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -4774,8 +5089,15 @@ public class Triangle {
 					   trian % 1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox32">
-				   </td>
+						<label for="checkbox32">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -4911,8 +5233,15 @@ public class Triangle {
 					   trian * 1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox33">
-				   </td>
+						<label for="checkbox33">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -5048,8 +5377,15 @@ public class Triangle {
 					   trian - 1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox34">
-				   </td>
+						<label for="checkbox34">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -5185,8 +5521,15 @@ public class Triangle {
 					   trian / 1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox35">
-				   </td>
+						<label for="checkbox35">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -5322,8 +5665,15 @@ public class Triangle {
 					   <NO-OP>
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox36">
-				   </td>
+						<label for="checkbox36">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -5459,8 +5809,15 @@ public class Triangle {
 					   a <= c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox37">
-				   </td>
+						<label for="checkbox37">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -5596,8 +5953,15 @@ public class Triangle {
 					   a >= c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox38">
-				   </td>
+						<label for="checkbox38">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -5733,8 +6097,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox39">
-				   </td>
+						<label for="checkbox39">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -5870,8 +6241,15 @@ public class Triangle {
 					   0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox40">
-				   </td>
+						<label for="checkbox40">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -6007,8 +6385,15 @@ public class Triangle {
 					   -2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox41">
-				   </td>
+						<label for="checkbox41">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -6144,8 +6529,15 @@ public class Triangle {
 					   trian % 2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox42">
-				   </td>
+						<label for="checkbox42">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -6281,8 +6673,15 @@ public class Triangle {
 					   trian * 2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox43">
-				   </td>
+						<label for="checkbox43">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -6418,8 +6817,15 @@ public class Triangle {
 					   trian - 2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox44">
-				   </td>
+						<label for="checkbox44">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -6555,8 +6961,15 @@ public class Triangle {
 					   trian / 2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox45">
-				   </td>
+						<label for="checkbox45">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -6692,8 +7105,15 @@ public class Triangle {
 					   <NO-OP>
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox46">
-				   </td>
+						<label for="checkbox46">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -6829,8 +7249,15 @@ public class Triangle {
 					   b <= c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox47">
-				   </td>
+						<label for="checkbox47">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -6966,8 +7393,15 @@ public class Triangle {
 					   b >= c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox48">
-				   </td>
+						<label for="checkbox48">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -7103,8 +7537,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox49">
-				   </td>
+						<label for="checkbox49">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -7240,8 +7681,15 @@ public class Triangle {
 					   0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox50">
-				   </td>
+						<label for="checkbox50">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -7377,8 +7825,15 @@ public class Triangle {
 					   -3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox51">
-				   </td>
+						<label for="checkbox51">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -7514,8 +7969,15 @@ public class Triangle {
 					   trian % 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox52">
-				   </td>
+						<label for="checkbox52">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -7651,8 +8113,15 @@ public class Triangle {
 					   trian * 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox53">
-				   </td>
+						<label for="checkbox53">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -7788,8 +8257,15 @@ public class Triangle {
 					   trian - 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox54">
-				   </td>
+						<label for="checkbox54">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -7925,8 +8401,15 @@ public class Triangle {
 					   trian / 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox55">
-				   </td>
+						<label for="checkbox55">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -8062,8 +8545,15 @@ public class Triangle {
 					   <NO-OP>
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox56">
-				   </td>
+						<label for="checkbox56">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -8199,8 +8689,15 @@ public class Triangle {
 					   1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox57">
-				   </td>
+						<label for="checkbox57">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -8336,8 +8833,15 @@ public class Triangle {
 					   -1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox58">
-				   </td>
+						<label for="checkbox58">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -8473,8 +8977,15 @@ public class Triangle {
 					   trian <= 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox59">
-				   </td>
+						<label for="checkbox59">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -8610,8 +9121,15 @@ public class Triangle {
 					   trian >= 0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox60">
-				   </td>
+						<label for="checkbox60">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -8747,8 +9265,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox61">
-				   </td>
+						<label for="checkbox61">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -8884,8 +9409,15 @@ public class Triangle {
 					   a % b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox62">
-				   </td>
+						<label for="checkbox62">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -9021,8 +9553,15 @@ public class Triangle {
 					   a * b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox63">
-				   </td>
+						<label for="checkbox63">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -9158,8 +9697,15 @@ public class Triangle {
 					   a - b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox64">
-				   </td>
+						<label for="checkbox64">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -9295,8 +9841,15 @@ public class Triangle {
 					   a / b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox65">
-				   </td>
+						<label for="checkbox65">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -9432,8 +9985,15 @@ public class Triangle {
 					   a + b < c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox66">
-				   </td>
+						<label for="checkbox66">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -9569,8 +10129,15 @@ public class Triangle {
 					   a + b == c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox67">
-				   </td>
+						<label for="checkbox67">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -9706,8 +10273,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox68">
-				   </td>
+						<label for="checkbox68">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -9843,8 +10417,15 @@ public class Triangle {
 					   a % c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox69">
-				   </td>
+						<label for="checkbox69">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -9980,8 +10561,15 @@ public class Triangle {
 					   a * c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox70">
-				   </td>
+						<label for="checkbox70">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -10117,8 +10705,15 @@ public class Triangle {
 					   a - c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox71">
-				   </td>
+						<label for="checkbox71">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -10254,8 +10849,15 @@ public class Triangle {
 					   a / c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox72">
-				   </td>
+						<label for="checkbox72">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -10391,8 +10993,15 @@ public class Triangle {
 					   a + c < b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox73">
-				   </td>
+						<label for="checkbox73">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -10528,8 +11137,15 @@ public class Triangle {
 					   a + c == b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox74">
-				   </td>
+						<label for="checkbox74">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -10665,8 +11281,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox75">
-				   </td>
+						<label for="checkbox75">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -10802,8 +11425,15 @@ public class Triangle {
 					   a + b <= c != a + c <= b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox76">
-				   </td>
+						<label for="checkbox76">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -10939,8 +11569,15 @@ public class Triangle {
 					   a + b <= c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox77">
-				   </td>
+						<label for="checkbox77">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -11076,8 +11713,15 @@ public class Triangle {
 					   a + c <= b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox78">
-				   </td>
+						<label for="checkbox78">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -11213,8 +11857,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox79">
-				   </td>
+						<label for="checkbox79">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -11350,8 +12001,15 @@ public class Triangle {
 					   b % c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox80">
-				   </td>
+						<label for="checkbox80">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -11487,8 +12145,15 @@ public class Triangle {
 					   b * c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox81">
-				   </td>
+						<label for="checkbox81">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -11624,8 +12289,15 @@ public class Triangle {
 					   b - c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox82">
-				   </td>
+						<label for="checkbox82">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -11761,8 +12433,15 @@ public class Triangle {
 					   b / c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox83">
-				   </td>
+						<label for="checkbox83">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -11898,8 +12577,15 @@ public class Triangle {
 					   b + c < a
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox84">
-				   </td>
+						<label for="checkbox84">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -12035,8 +12721,15 @@ public class Triangle {
 					   b + c == a
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox85">
-				   </td>
+						<label for="checkbox85">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -12172,8 +12865,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox86">
-				   </td>
+						<label for="checkbox86">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -12309,8 +13009,15 @@ public class Triangle {
 					   (a + b <= c || a + c <= b) != b + c <= a
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox87">
-				   </td>
+						<label for="checkbox87">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -12446,8 +13153,15 @@ public class Triangle {
 					   a + b <= c || a + c <= b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox88">
-				   </td>
+						<label for="checkbox88">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -12583,8 +13297,15 @@ public class Triangle {
 					   b + c <= a
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox89">
-				   </td>
+						<label for="checkbox89">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -12720,8 +13441,15 @@ public class Triangle {
 					   true
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox90">
-				   </td>
+						<label for="checkbox90">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -12857,8 +13585,15 @@ public class Triangle {
 					   return null;
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox91">
-				   </td>
+						<label for="checkbox91">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -12994,8 +13729,15 @@ public class Triangle {
 					   return null;
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox92">
-				   </td>
+						<label for="checkbox92">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -13131,8 +13873,15 @@ public class Triangle {
 					   0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox93">
-				   </td>
+						<label for="checkbox93">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -13268,8 +14017,15 @@ public class Triangle {
 					   -3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox94">
-				   </td>
+						<label for="checkbox94">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -13405,8 +14161,15 @@ public class Triangle {
 					   trian != 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox95">
-				   </td>
+						<label for="checkbox95">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -13542,8 +14305,15 @@ public class Triangle {
 					   trian >= 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox96">
-				   </td>
+						<label for="checkbox96">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -13679,8 +14449,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox97">
-				   </td>
+						<label for="checkbox97">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -13816,8 +14593,15 @@ public class Triangle {
 					   return null;
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox98">
-				   </td>
+						<label for="checkbox98">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -13953,8 +14737,15 @@ public class Triangle {
 					   0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox99">
-				   </td>
+						<label for="checkbox99">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -14090,8 +14881,15 @@ public class Triangle {
 					   -1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox100">
-				   </td>
+						<label for="checkbox100">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -14227,8 +15025,15 @@ public class Triangle {
 					   trian <= 1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox101">
-				   </td>
+						<label for="checkbox101">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -14364,8 +15169,15 @@ public class Triangle {
 					   trian >= 1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox102">
-				   </td>
+						<label for="checkbox102">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -14501,8 +15313,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox103">
-				   </td>
+						<label for="checkbox103">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -14638,8 +15457,15 @@ public class Triangle {
 					   a % b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox104">
-				   </td>
+						<label for="checkbox104">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -14775,8 +15601,15 @@ public class Triangle {
 					   a * b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox105">
-				   </td>
+						<label for="checkbox105">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -14912,8 +15745,15 @@ public class Triangle {
 					   a - b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox106">
-				   </td>
+						<label for="checkbox106">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -15049,8 +15889,15 @@ public class Triangle {
 					   a / b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox107">
-				   </td>
+						<label for="checkbox107">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -15186,8 +16033,15 @@ public class Triangle {
 					   a + b != c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox108">
-				   </td>
+						<label for="checkbox108">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -15323,8 +16177,15 @@ public class Triangle {
 					   a + b >= c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox109">
-				   </td>
+						<label for="checkbox109">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -15460,8 +16321,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox110">
-				   </td>
+						<label for="checkbox110">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -15597,8 +16465,15 @@ public class Triangle {
 					   trian == 1 == a + b > c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox111">
-				   </td>
+						<label for="checkbox111">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -15734,8 +16609,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox112">
-				   </td>
+						<label for="checkbox112">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -15871,8 +16753,15 @@ public class Triangle {
 					   trian == 1
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox113">
-				   </td>
+						<label for="checkbox113">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -16008,8 +16897,15 @@ public class Triangle {
 					   a + b > c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox114">
-				   </td>
+						<label for="checkbox114">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -16145,8 +17041,15 @@ public class Triangle {
 					   return null;
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox115">
-				   </td>
+						<label for="checkbox115">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -16282,8 +17185,15 @@ public class Triangle {
 					   0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox116">
-				   </td>
+						<label for="checkbox116">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -16419,8 +17329,15 @@ public class Triangle {
 					   -2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox117">
-				   </td>
+						<label for="checkbox117">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -16556,8 +17473,15 @@ public class Triangle {
 					   trian <= 2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox118">
-				   </td>
+						<label for="checkbox118">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -16693,8 +17617,15 @@ public class Triangle {
 					   trian >= 2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox119">
-				   </td>
+						<label for="checkbox119">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -16830,8 +17761,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox120">
-				   </td>
+						<label for="checkbox120">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -16967,8 +17905,15 @@ public class Triangle {
 					   a % c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox121">
-				   </td>
+						<label for="checkbox121">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -17104,8 +18049,15 @@ public class Triangle {
 					   a * c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox122">
-				   </td>
+						<label for="checkbox122">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -17241,8 +18193,15 @@ public class Triangle {
 					   a - c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox123">
-				   </td>
+						<label for="checkbox123">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -17378,8 +18337,15 @@ public class Triangle {
 					   a / c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox124">
-				   </td>
+						<label for="checkbox124">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -17515,8 +18481,15 @@ public class Triangle {
 					   a + c != b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox125">
-				   </td>
+						<label for="checkbox125">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -17652,8 +18625,15 @@ public class Triangle {
 					   a + c >= b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox126">
-				   </td>
+						<label for="checkbox126">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -17789,8 +18769,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox127">
-				   </td>
+						<label for="checkbox127">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -17926,8 +18913,15 @@ public class Triangle {
 					   trian == 2 == a + c > b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox128">
-				   </td>
+						<label for="checkbox128">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -18063,8 +19057,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox129">
-				   </td>
+						<label for="checkbox129">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -18200,8 +19201,15 @@ public class Triangle {
 					   trian == 2
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox130">
-				   </td>
+						<label for="checkbox130">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -18337,8 +19345,15 @@ public class Triangle {
 					   a + c > b
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox131">
-				   </td>
+						<label for="checkbox131">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -18474,8 +19489,15 @@ public class Triangle {
 					   return null;
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox132">
-				   </td>
+						<label for="checkbox132">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -18611,8 +19633,15 @@ public class Triangle {
 					   0
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox133">
-				   </td>
+						<label for="checkbox133">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -18748,8 +19777,15 @@ public class Triangle {
 					   -3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox134">
-				   </td>
+						<label for="checkbox134">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -18885,8 +19921,15 @@ public class Triangle {
 					   trian <= 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox135">
-				   </td>
+						<label for="checkbox135">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -19022,8 +20065,15 @@ public class Triangle {
 					   trian >= 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox136">
-				   </td>
+						<label for="checkbox136">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -19159,8 +20209,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox137">
-				   </td>
+						<label for="checkbox137">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -19296,8 +20353,15 @@ public class Triangle {
 					   b % c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox138">
-				   </td>
+						<label for="checkbox138">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -19433,8 +20497,15 @@ public class Triangle {
 					   b * c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox139">
-				   </td>
+						<label for="checkbox139">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -19570,8 +20641,15 @@ public class Triangle {
 					   b - c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox140">
-				   </td>
+						<label for="checkbox140">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -19707,8 +20785,15 @@ public class Triangle {
 					   b / c
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox141">
-				   </td>
+						<label for="checkbox141">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -19844,8 +20929,15 @@ public class Triangle {
 					   b + c != a
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox142">
-				   </td>
+						<label for="checkbox142">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -19981,8 +21073,15 @@ public class Triangle {
 					   b + c >= a
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox143">
-				   </td>
+						<label for="checkbox143">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -20118,8 +21217,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox144">
-				   </td>
+						<label for="checkbox144">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -20255,8 +21361,15 @@ public class Triangle {
 					   trian == 3 == b + c > a
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox145">
-				   </td>
+						<label for="checkbox145">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -20392,8 +21505,15 @@ public class Triangle {
 					   false
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox146">
-				   </td>
+						<label for="checkbox146">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -20529,8 +21649,15 @@ public class Triangle {
 					   trian == 3
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox147">
-				   </td>
+						<label for="checkbox147">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -20666,8 +21793,15 @@ public class Triangle {
 					   b + c > a
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox148">
-				   </td>
+						<label for="checkbox148">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -20803,8 +21937,15 @@ public class Triangle {
 					   return null;
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox149">
-				   </td>
+						<label for="checkbox149">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -20940,8 +22081,15 @@ public class Triangle {
 					   return null;
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkbox150">
-				   </td>
+						<label for="checkbox150">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -21086,14 +22234,14 @@ public class Triangle {
 				   var myChart = new Chart(ctx, {
 				   type: 'doughnut',
 				   data: {
-				   labels: ["Killed", "Unkilled","Uncovered"],
+				   labels: ["Killed", "Unkilled"],
 				   datasets: [{
 				   backgroundColor: [
 				   "#009688",
 				   "#D1C4E9",
 				   "#C5CAE9"
 				   ],
-				   data: [90,42,18.0]
+				   data: [90,42]
 				   }]
 				   }
 				   });
@@ -21111,21 +22259,26 @@ public class Triangle {
 						 "#009688"
 						 ],
 				   
-						 data: [0.15]
+						 data: [0.14]
 				   },{
 				   label: "Analysis",
 						 backgroundColor: [
 						 "#D1C4E9"
 						 ],
-						 data: [2.4]
+						 data: [2.2]
 						 }]
 						 }
 						 });
 				</script>
 				<script>
-				$(':checkbox').each(function() {
-					$(this).prop('checked',localStorage.getItem(this.name) == 'checked');
-				});
+				$(document).ready(function() {
+					var chart = document.getElementById("killedMutants");
+					document.getElementById("killedMutants").onclick = function(evt)
+					{   
+						 $("#mutantTable").prepend(tr.find("input[value='Not Covered']").closest('tr'));
+					}				 
+				}); 
+
 				</script>
 				</body>
 				</html>

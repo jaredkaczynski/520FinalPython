@@ -10,7 +10,7 @@ import cgitb; cgitb.enable()
 import re
 import subprocess
 
-debug = False;
+debug = True;
 killed_mutants_dir = "mutation_results/killed.csv"
 summary_mutants_dir = "mutation_results/summary.csv"
 log_mutants_path = "mutation_results/mutants.log"
@@ -41,7 +41,7 @@ var firstAvailCol;if(typeof(matrix[rowIndex])=="undefined"){matrix[rowIndex]=[];
 		$checkboxes.each(function(){
 			checkboxValues[this.id] = this.checked;
 		});
-		console.log(JSON.stringify(checkboxValues));
+		console.log("Checkbox Update");
 		localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
 	});
 	
@@ -55,6 +55,25 @@ var firstAvailCol;if(typeof(matrix[rowIndex])=="undefined"){matrix[rowIndex]=[];
 	$(document).ready(function() 
     { 
         $("table").tablesorter({});
+		// per css-tricks restarting css animations
+		// http://css-tricks.com/restart-css-animation/
+		$('label').click(function() {
+		  
+		  // find the first span which is our circle/bubble
+		  var el = $(this).children('span:first-child');
+		  if(!el.hasClass('check'))
+		  // add the bubble class (we do this so it doesnt show on page load)
+		  el.addClass('circle');
+		  
+		  // clone it
+		  var newone = el.clone(true);  
+		  
+		  // add the cloned version before our original
+		  el.before(newone);  
+		  
+		  // remove the original so that it is ready to run on next click
+		  $("." + el.attr("class") + ":last").remove();
+		}); 
     } 
 	); 
 		
@@ -88,6 +107,84 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	</script>
 	
 	<style>
+	/* basic css */
+	input[type=checkbox]   { display:none; }
+	label, p               { padding-left:50px; }
+	#check-awesome         { position:relative; }
+
+	/* checkbox css */
+	label                  { cursor:pointer; }
+	label span             { display:block; position:absolute; left:0; 
+	  -webkit-transition-duration:0.3s; -moz-transition-duration:0.3s; transition-duration:0.3s;
+	}
+	label .circle          {
+	  background:#FFF;
+	  left:-30px;
+	  top:-30px;
+	  height:80px;
+	  width:80px;
+	  z-index:-1;
+	  border-radius:50%; -moz-border-radius:50%; -webkit-border-radius:50%;
+	}
+	label .box     {
+	  border:2px solid #7E57C2;
+	  height:20px; 
+	  width:20px;
+	  z-index:888;
+	  -webkit-transition-delay:0.0s; -moz-transition-delay:0.0s; transition-delay:0.0s;
+	}
+	label .check         {
+	  top: 0px;
+	  left: 3px;
+	  width: 12px;
+	  height: 24px;
+	  border:2px solid #0f9d58;  
+	  border-top: none;
+	  border-left: none;
+	  opacity:0; 
+	  z-index:888;
+	  -webkit-transform:rotate(180deg); -moz-transform:rotate(180deg); transform:rotate(180deg);
+	  -webkit-transition-delay:0.0s; -moz-transition-delay:0.0s; transition-delay:0.0s;
+	}
+
+	/* handling click events */
+
+	/* when checkbox is checked */
+	label .circle {
+	  -webkit-animation   :growCircle 0.3s ease;
+	  -moz-animation      :growCircle 0.3s ease;
+	  animation           :growCircle 0.3s ease;
+	}
+	input[type=checkbox]:checked ~ label .box { 
+	  opacity:0;
+	  -webkit-transform   :scale(0) rotate(-180deg);
+	  -moz-transform        :scale(0) rotate(-180deg);
+	  transform                 :scale(0) rotate(-180deg);
+	}
+	input[type=checkbox]:checked ~ label .check {
+	  opacity:1; 
+	  -webkit-transform   :scale(1) rotate(45deg);
+	  -moz-transform      :scale(1) rotate(45deg);
+	  transform           :scale(1) rotate(45deg);
+	}
+
+	/* bubble animation */
+
+	@-webkit-keyframes growCircle {
+	  0%, 100%   { -webkit-transform:scale(0); }
+	  70%        { background:#DDD; -webkit-transform:scale(1.25); }
+	}
+	@-moz-keyframes growCircle {
+	  0%, 100%   { -moz-transform:scale(0); }
+	  70%        { background:#DDD; -moz-transform:scale(1.25); }
+	}
+	@keyframes growCircle {
+	  0%, 100%   { transform:scale(0); }
+	  70%        { background:#DDD; transform:scale(1.25); }
+	}
+	</style>
+	
+	<style>
 	  @import url('https://fonts.googleapis.com/css?family=Lato|Roboto');
 
    body{
@@ -111,6 +208,7 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
    .myTable tr th{
      background-color: #673AB7;
 	 color: white;
+	 height: 2px;
    }
 	
 	::-webkit-scrollbar-track {
@@ -548,8 +646,15 @@ html_table_rows = r"""
 					  MUTANT_CODE_CHANGE_AFTER
 				   </td>
 				   <td>
+					<div id="check-awesome" class="form-group">    
 					  <input type="checkbox" id="checkboxMUTANT_ID">
-				   </td>
+						<label for="checkboxMUTANT_ID">
+							<span class="circle"></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>  
+					  </td>
+					</div>
 				</tr>
 				<tr class="expand-child">
 					<td colspan="120" class="hidden_row">
@@ -593,14 +698,14 @@ html_footer = r"""
 				   var myChart = new Chart(ctx, {
 				   type: 'doughnut',
 				   data: {
-				   labels: ["Killed", "Unkilled","Uncovered"],
+				   labels: ["Killed", "Unkilled"],
 				   datasets: [{
 				   backgroundColor: [
 				   "#009688",
 				   "#D1C4E9",
 				   "#C5CAE9"
 				   ],
-				   data: [MUTANTS_KILLED_ACTUAL,MUTANTS_ALIVE_ACTUAL,MUTANTS_REMAINING_PERCENT]
+				   data: [MUTANTS_KILLED_ACTUAL,MUTANTS_ALIVE_ACTUAL]
 				   }]
 				   }
 				   });
@@ -630,9 +735,14 @@ html_footer = r"""
 						 });
 				</script>
 				<script>
-				$(':checkbox').each(function() {
-					$(this).prop('checked',localStorage.getItem(this.name) == 'checked');
-				});
+				$(document).ready(function() {
+					var chart = document.getElementById("killedMutants");
+					document.getElementById("killedMutants").onclick = function(evt)
+					{   
+						 $("#mutantTable").prepend(tr.find("input[value='Not Covered']").closest('tr'));
+					}				 
+				}); 
+
 				</script>
 				</body>
 				</html>
@@ -752,7 +862,8 @@ def readMutants():
 	
 	
 def main():
-	run_mutant()
+	if not debug:
+		run_mutant()
 	read_summary()
 	read_killed()
 	read_diff()
@@ -765,7 +876,7 @@ def main():
 		print(len(killed_dict))
 		print(summary_dict)
 		print(class_path)
-		print(function_name)
+		print(method_name)
 	add_data()
 	build_html()
 	
