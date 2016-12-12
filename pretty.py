@@ -485,10 +485,9 @@ html_summary = r"""<div class = "visualizations">
          <tbody>
 	  """
 html_table_rows = r"""
-				<tr style="background-color:COLOR_CLASS">
+				<tr style="background-color:COLOR_CLASS" data-toggle="modal" data-target="#myModalMUTANT_ID">
 				   <td>
 					  MUTANT_ID
-					  <span class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#myModalMUTANT_ID"></span>
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
 						 <div class="modal fade" id="myModalMUTANT_ID" role="dialog">
@@ -496,7 +495,7 @@ html_table_rows = r"""
 							   <!-- Modal content-->
 							   <div class="modal-content">
 								  <div class="modal-header">
-									 <button type="button" class="close" data-dismiss="modal">&times;</button>
+									 <button type="button" class="close" data-dismiss="#myModalMUTANT_ID">&times;</button>
 									 <h4 class="modal-title">Original Versus Mutated Code</h4>
 									 <div class="modal-body">
 										<div id="demoMUTANT_ID" class="col-md-6">
