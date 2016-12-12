@@ -412,16 +412,16 @@ html_summary = r"""<div class = "visualizations">
          <br> 
          <div class = "well">
             <div class="row">
-               <div class="col-md-4">
+               <div class="col-md-4 ">
                   <p> Class Name</p>
                   <h4> <strong> CLASS_NAME </strong></h4>
                </div>
-               <div class="col-md-4">
+               <div class="col-md-4 ">
                   <p> Total Mutants 
                   <h4> <strong>TOTAL_MUTANTS</strong> </h4>
                   </p>
                </div>
-               <div class="col-md-4" >
+               <div class="col-md-4 " >
                   <p> Analysis Time 
                   <h4><strong>TOTAL_TIME Seconds</strong></h4>
                   </p> 
@@ -468,7 +468,7 @@ html_summary = r"""<div class = "visualizations">
                   Killed
                </th>
                <th id="lineofCodeThatChanged" class="col-md-1">
-                  Line of Code that Changed
+                  Line
                </th>
 			   <th id="snippetofCodeThatChangedBefore" class="col-md-4">
                   Original Code
@@ -527,7 +527,9 @@ html_table_rows = r"""
 					  MUTANT_CODE_CHANGE_AFTER
 				   </td>
 				   <td>
-					  <input type="checkbox" value="">
+					  
+					  <input type="checkbox" id="checkboxMUTANT_ID" value="">
+					  
 				   </td>
 				</tr>
 			   """
@@ -541,7 +543,7 @@ html_footer = r"""
 				   var myChart = new Chart(ctx, {
 				   type: 'pie',
 				   data: {
-					 labels: ["positive index", "negative index",],
+					 labels: ["Covered Mutants", "Non-Covered Mutants",],
 					 datasets: [{
 					   backgroundColor: [
 						 "#009688",
@@ -595,6 +597,11 @@ html_footer = r"""
 						 }]
 						 }
 						 });
+				</script>
+				<script>
+				$(':checkbox').each(function() {
+					$(this).prop('checked',localStorage.getItem(this.name) == 'checked');
+				});
 				</script>
 				</body>
 				</html>
