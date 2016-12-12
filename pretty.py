@@ -82,6 +82,7 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
    
    }
 
+   
 
 	.navbar-custom {
 		color: #FFFFFF;
@@ -411,16 +412,16 @@ html_summary = r"""<div class = "visualizations">
          <br> 
          <div class = "well">
             <div class="row">
-               <div class="col-md-4"  align="center">
+               <div class="col-md-4">
                   <p> Class Name</p>
                   <h4> <strong> CLASS_NAME </strong></h4>
                </div>
-               <div class="col-md-4" align="center">
+               <div class="col-md-4">
                   <p> Total Mutants 
                   <h4> <strong>TOTAL_MUTANTS</strong> </h4>
                   </p>
                </div>
-               <div class="col-md-4"  align="center">
+               <div class="col-md-4" >
                   <p> Analysis Time 
                   <h4><strong>TOTAL_TIME Seconds</strong></h4>
                   </p> 
@@ -485,7 +486,7 @@ html_summary = r"""<div class = "visualizations">
          <tbody>
 	  """
 html_table_rows = r"""
-				<tr style="background-color:COLOR_CLASS" data-toggle="modal" data-target="#myModalMUTANT_ID">
+				<tr style="background-color:COLOR_CLASS" data-toggle="modal" data-backdrop="static" data-target="#myModalMUTANT_ID">
 				   <td>
 					  MUTANT_ID
 					  <div class = "viewExpandCode">
