@@ -10,6 +10,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
+	$(document).ready(function() {
+	var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {};
+	var $checkboxes = $(':checkbox');
+	
+	$checkboxes.on("change", function(){
+		$checkboxes.each(function(){
+			checkboxValues[this.id] = this.checked;
+		});
+		console.log(JSON.stringify(checkboxValues));
+		localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
+	});
+	
+	$.each(checkboxValues, function(key, value) {
+		$("#" + key).prop('checked', value);
+	});
+     
+	}); 
+	</script>
+	<script>
 				   /*!
 				   * Chart.js
 				   * http://chartjs.org/
@@ -463,10 +482,10 @@ pre.line-numbers > code {
             </tr>
 
 			</thead>
-         <tbody>
+         <tbody id="checkbox-container">
 	  
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal1">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal1">
 					  1
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -598,27 +617,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal1">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal1">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal1">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal1">
 					   1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox1" value="">
-					  
+					  <input type="checkbox" id="checkbox1">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal2">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal2">
 					  2
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -750,27 +767,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal2">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal2">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal2">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal2">
 					   -1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox2" value="">
-					  
+					  <input type="checkbox" id="checkbox2">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal3">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal3">
 					  3
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -902,27 +917,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal3">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal3">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal3">
 					  a <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal3">
 					   a < 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox3" value="">
-					  
+					  <input type="checkbox" id="checkbox3">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal4">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal4">
 					  4
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -1054,27 +1067,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal4">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal4">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal4">
 					  a <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal4">
 					   a == 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox4" value="">
-					  
+					  <input type="checkbox" id="checkbox4">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal5">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal5">
 					  5
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -1206,27 +1217,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal5">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal5">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal5">
 					  a <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal5">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox5" value="">
-					  
+					  <input type="checkbox" id="checkbox5">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal6">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal6">
 					  6
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -1358,27 +1367,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal6">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal6">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal6">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal6">
 					   1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox6" value="">
-					  
+					  <input type="checkbox" id="checkbox6">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal7">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal7">
 					  7
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -1510,27 +1517,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal7">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal7">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal7">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal7">
 					   -1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox7" value="">
-					  
+					  <input type="checkbox" id="checkbox7">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal8">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal8">
 					  8
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -1662,27 +1667,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal8">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal8">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal8">
 					  b <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal8">
 					   b < 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox8" value="">
-					  
+					  <input type="checkbox" id="checkbox8">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal9">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal9">
 					  9
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -1814,27 +1817,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal9">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal9">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal9">
 					  b <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal9">
 					   b == 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox9" value="">
-					  
+					  <input type="checkbox" id="checkbox9">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal10">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal10">
 					  10
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -1966,27 +1967,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal10">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal10">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal10">
 					  b <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal10">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox10" value="">
-					  
+					  <input type="checkbox" id="checkbox10">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal11">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal11">
 					  11
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -2118,27 +2117,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal11">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal11">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal11">
 					  a <= 0 || b <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal11">
 					   a <= 0 != b <= 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox11" value="">
-					  
+					  <input type="checkbox" id="checkbox11">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal12">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal12">
 					  12
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -2270,27 +2267,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal12">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal12">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal12">
 					  a <= 0 || b <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal12">
 					   a <= 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox12" value="">
-					  
+					  <input type="checkbox" id="checkbox12">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal13">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal13">
 					  13
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -2422,27 +2417,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal13">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal13">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal13">
 					  a <= 0 || b <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal13">
 					   b <= 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox13" value="">
-					  
+					  <input type="checkbox" id="checkbox13">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal14">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal14">
 					  14
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -2574,27 +2567,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal14">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal14">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal14">
 					  a <= 0 || b <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal14">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox14" value="">
-					  
+					  <input type="checkbox" id="checkbox14">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal15">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal15">
 					  15
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -2726,27 +2717,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal15">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal15">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal15">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal15">
 					   1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox15" value="">
-					  
+					  <input type="checkbox" id="checkbox15">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal16">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal16">
 					  16
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -2878,27 +2867,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal16">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal16">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal16">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal16">
 					   -1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox16" value="">
-					  
+					  <input type="checkbox" id="checkbox16">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal17">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal17">
 					  17
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -3030,27 +3017,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal17">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal17">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal17">
 					  c <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal17">
 					   c < 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox17" value="">
-					  
+					  <input type="checkbox" id="checkbox17">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal18">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal18">
 					  18
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -3182,27 +3167,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal18">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal18">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal18">
 					  c <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal18">
 					   c == 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox18" value="">
-					  
+					  <input type="checkbox" id="checkbox18">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal19">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal19">
 					  19
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -3334,27 +3317,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal19">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal19">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal19">
 					  c <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal19">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox19" value="">
-					  
+					  <input type="checkbox" id="checkbox19">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal20">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal20">
 					  20
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -3486,27 +3467,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal20">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal20">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal20">
 					  a <= 0 || b <= 0 || c <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal20">
 					   (a <= 0 || b <= 0) != c <= 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox20" value="">
-					  
+					  <input type="checkbox" id="checkbox20">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal21">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal21">
 					  21
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -3638,27 +3617,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal21">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal21">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal21">
 					  a <= 0 || b <= 0 || c <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal21">
 					   a <= 0 || b <= 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox21" value="">
-					  
+					  <input type="checkbox" id="checkbox21">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal22">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal22">
 					  22
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -3790,27 +3767,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal22">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal22">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal22">
 					  a <= 0 || b <= 0 || c <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal22">
 					   c <= 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox22" value="">
-					  
+					  <input type="checkbox" id="checkbox22">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal23">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal23">
 					  23
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -3942,27 +3917,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal23">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal23">
 					  20
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal23">
 					  a <= 0 || b <= 0 || c <= 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal23">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox23" value="">
-					  
+					  <input type="checkbox" id="checkbox23">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal24">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal24">
 					  24
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -4094,27 +4067,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal24">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal24">
 					  21
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal24">
 					  return Type.INVALID; 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal24">
 					   return null;
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox24" value="">
-					  
+					  <input type="checkbox" id="checkbox24">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal25">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal25">
 					  25
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -4246,27 +4217,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal25">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal25">
 					  23
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal25">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal25">
 					   1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox25" value="">
-					  
+					  <input type="checkbox" id="checkbox25">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal26">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal26">
 					  26
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -4398,27 +4367,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal26">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal26">
 					  23
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal26">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal26">
 					   -1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox26" value="">
-					  
+					  <input type="checkbox" id="checkbox26">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal27">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal27">
 					  27
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -4550,27 +4517,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal27">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal27">
 					  24
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal27">
 					  a == b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal27">
 					   a <= b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox27" value="">
-					  
+					  <input type="checkbox" id="checkbox27">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal28">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal28">
 					  28
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -4702,27 +4667,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal28">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal28">
 					  24
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal28">
 					  a == b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal28">
 					   a >= b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox28" value="">
-					  
+					  <input type="checkbox" id="checkbox28">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal29">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal29">
 					  29
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -4854,27 +4817,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal29">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal29">
 					  24
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal29">
 					  a == b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal29">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox29" value="">
-					  
+					  <input type="checkbox" id="checkbox29">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal30">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal30">
 					  30
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -5006,27 +4967,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal30">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal30">
 					  25
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal30">
 					  1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal30">
 					   0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox30" value="">
-					  
+					  <input type="checkbox" id="checkbox30">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal31">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal31">
 					  31
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -5158,27 +5117,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal31">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal31">
 					  25
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal31">
 					  1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal31">
 					   -1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox31" value="">
-					  
+					  <input type="checkbox" id="checkbox31">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal32">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal32">
 					  32
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -5310,27 +5267,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal32">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal32">
 					  25
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal32">
 					  trian + 1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal32">
 					   trian % 1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox32" value="">
-					  
+					  <input type="checkbox" id="checkbox32">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal33">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal33">
 					  33
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -5462,27 +5417,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal33">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal33">
 					  25
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal33">
 					  trian + 1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal33">
 					   trian * 1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox33" value="">
-					  
+					  <input type="checkbox" id="checkbox33">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal34">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal34">
 					  34
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -5614,27 +5567,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal34">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal34">
 					  25
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal34">
 					  trian + 1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal34">
 					   trian - 1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox34" value="">
-					  
+					  <input type="checkbox" id="checkbox34">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal35">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal35">
 					  35
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -5766,27 +5717,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal35">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal35">
 					  25
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal35">
 					  trian + 1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal35">
 					   trian / 1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox35" value="">
-					  
+					  <input type="checkbox" id="checkbox35">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal36">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal36">
 					  36
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -5918,27 +5867,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal36">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal36">
 					  25
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal36">
 					  trian = trian + 1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal36">
 					   <NO-OP>
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox36" value="">
-					  
+					  <input type="checkbox" id="checkbox36">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal37">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal37">
 					  37
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -6070,27 +6017,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal37">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal37">
 					  27
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal37">
 					  a == c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal37">
 					   a <= c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox37" value="">
-					  
+					  <input type="checkbox" id="checkbox37">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal38">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal38">
 					  38
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -6222,27 +6167,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal38">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal38">
 					  27
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal38">
 					  a == c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal38">
 					   a >= c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox38" value="">
-					  
+					  <input type="checkbox" id="checkbox38">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal39">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal39">
 					  39
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -6374,27 +6317,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal39">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal39">
 					  27
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal39">
 					  a == c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal39">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox39" value="">
-					  
+					  <input type="checkbox" id="checkbox39">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal40">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal40">
 					  40
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -6526,27 +6467,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal40">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal40">
 					  28
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal40">
 					  2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal40">
 					   0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox40" value="">
-					  
+					  <input type="checkbox" id="checkbox40">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal41">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal41">
 					  41
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -6678,27 +6617,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal41">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal41">
 					  28
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal41">
 					  2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal41">
 					   -2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox41" value="">
-					  
+					  <input type="checkbox" id="checkbox41">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal42">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal42">
 					  42
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -6830,27 +6767,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal42">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal42">
 					  28
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal42">
 					  trian + 2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal42">
 					   trian % 2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox42" value="">
-					  
+					  <input type="checkbox" id="checkbox42">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal43">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal43">
 					  43
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -6982,27 +6917,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal43">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal43">
 					  28
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal43">
 					  trian + 2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal43">
 					   trian * 2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox43" value="">
-					  
+					  <input type="checkbox" id="checkbox43">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal44">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal44">
 					  44
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -7134,27 +7067,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal44">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal44">
 					  28
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal44">
 					  trian + 2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal44">
 					   trian - 2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox44" value="">
-					  
+					  <input type="checkbox" id="checkbox44">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal45">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal45">
 					  45
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -7286,27 +7217,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal45">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal45">
 					  28
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal45">
 					  trian + 2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal45">
 					   trian / 2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox45" value="">
-					  
+					  <input type="checkbox" id="checkbox45">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal46">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal46">
 					  46
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -7438,27 +7367,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal46">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal46">
 					  28
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal46">
 					  trian = trian + 2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal46">
 					   <NO-OP>
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox46" value="">
-					  
+					  <input type="checkbox" id="checkbox46">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal47">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal47">
 					  47
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -7590,27 +7517,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal47">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal47">
 					  30
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal47">
 					  b == c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal47">
 					   b <= c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox47" value="">
-					  
+					  <input type="checkbox" id="checkbox47">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal48">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal48">
 					  48
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -7742,27 +7667,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal48">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal48">
 					  30
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal48">
 					  b == c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal48">
 					   b >= c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox48" value="">
-					  
+					  <input type="checkbox" id="checkbox48">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal49">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal49">
 					  49
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -7894,27 +7817,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal49">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal49">
 					  30
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal49">
 					  b == c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal49">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox49" value="">
-					  
+					  <input type="checkbox" id="checkbox49">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal50">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal50">
 					  50
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -8046,27 +7967,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal50">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal50">
 					  31
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal50">
 					  3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal50">
 					   0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox50" value="">
-					  
+					  <input type="checkbox" id="checkbox50">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal51">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal51">
 					  51
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -8198,27 +8117,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal51">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal51">
 					  31
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal51">
 					  3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal51">
 					   -3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox51" value="">
-					  
+					  <input type="checkbox" id="checkbox51">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal52">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal52">
 					  52
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -8350,27 +8267,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal52">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal52">
 					  31
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal52">
 					  trian + 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal52">
 					   trian % 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox52" value="">
-					  
+					  <input type="checkbox" id="checkbox52">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal53">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal53">
 					  53
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -8502,27 +8417,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal53">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal53">
 					  31
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal53">
 					  trian + 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal53">
 					   trian * 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox53" value="">
-					  
+					  <input type="checkbox" id="checkbox53">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal54">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal54">
 					  54
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -8654,27 +8567,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal54">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal54">
 					  31
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal54">
 					  trian + 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal54">
 					   trian - 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox54" value="">
-					  
+					  <input type="checkbox" id="checkbox54">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal55">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal55">
 					  55
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -8806,27 +8717,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal55">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal55">
 					  31
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal55">
 					  trian + 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal55">
 					   trian / 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox55" value="">
-					  
+					  <input type="checkbox" id="checkbox55">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal56">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal56">
 					  56
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -8958,27 +8867,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal56">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal56">
 					  31
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal56">
 					  trian = trian + 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal56">
 					   <NO-OP>
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox56" value="">
-					  
+					  <input type="checkbox" id="checkbox56">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal57">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal57">
 					  57
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -9110,27 +9017,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal57">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal57">
 					  33
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal57">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal57">
 					   1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox57" value="">
-					  
+					  <input type="checkbox" id="checkbox57">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal58">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal58">
 					  58
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -9262,27 +9167,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal58">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal58">
 					  33
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal58">
 					  0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal58">
 					   -1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox58" value="">
-					  
+					  <input type="checkbox" id="checkbox58">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal59">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal59">
 					  59
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -9414,27 +9317,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal59">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal59">
 					  33
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal59">
 					  trian == 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal59">
 					   trian <= 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox59" value="">
-					  
+					  <input type="checkbox" id="checkbox59">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal60">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal60">
 					  60
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -9566,27 +9467,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal60">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal60">
 					  33
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal60">
 					  trian == 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal60">
 					   trian >= 0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox60" value="">
-					  
+					  <input type="checkbox" id="checkbox60">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal61">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal61">
 					  61
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -9718,27 +9617,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal61">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal61">
 					  33
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal61">
 					  trian == 0 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal61">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox61" value="">
-					  
+					  <input type="checkbox" id="checkbox61">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal62">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal62">
 					  62
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -9870,27 +9767,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal62">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal62">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal62">
 					  a + b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal62">
 					   a % b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox62" value="">
-					  
+					  <input type="checkbox" id="checkbox62">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal63">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal63">
 					  63
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -10022,27 +9917,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal63">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal63">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal63">
 					  a + b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal63">
 					   a * b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox63" value="">
-					  
+					  <input type="checkbox" id="checkbox63">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal64">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal64">
 					  64
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -10174,27 +10067,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal64">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal64">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal64">
 					  a + b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal64">
 					   a - b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox64" value="">
-					  
+					  <input type="checkbox" id="checkbox64">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal65">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal65">
 					  65
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -10326,27 +10217,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal65">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal65">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal65">
 					  a + b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal65">
 					   a / b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox65" value="">
-					  
+					  <input type="checkbox" id="checkbox65">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal66">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal66">
 					  66
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -10478,27 +10367,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal66">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal66">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal66">
 					  a + b <= c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal66">
 					   a + b < c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox66" value="">
-					  
+					  <input type="checkbox" id="checkbox66">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal67">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal67">
 					  67
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -10630,27 +10517,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal67">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal67">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal67">
 					  a + b <= c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal67">
 					   a + b == c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox67" value="">
-					  
+					  <input type="checkbox" id="checkbox67">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal68">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal68">
 					  68
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -10782,27 +10667,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal68">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal68">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal68">
 					  a + b <= c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal68">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox68" value="">
-					  
+					  <input type="checkbox" id="checkbox68">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal69">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal69">
 					  69
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -10934,27 +10817,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal69">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal69">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal69">
 					  a + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal69">
 					   a % c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox69" value="">
-					  
+					  <input type="checkbox" id="checkbox69">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal70">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal70">
 					  70
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -11086,27 +10967,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal70">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal70">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal70">
 					  a + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal70">
 					   a * c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox70" value="">
-					  
+					  <input type="checkbox" id="checkbox70">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal71">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal71">
 					  71
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -11238,27 +11117,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal71">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal71">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal71">
 					  a + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal71">
 					   a - c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox71" value="">
-					  
+					  <input type="checkbox" id="checkbox71">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal72">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal72">
 					  72
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -11390,27 +11267,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal72">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal72">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal72">
 					  a + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal72">
 					   a / c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox72" value="">
-					  
+					  <input type="checkbox" id="checkbox72">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal73">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal73">
 					  73
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -11542,27 +11417,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal73">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal73">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal73">
 					  a + c <= b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal73">
 					   a + c < b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox73" value="">
-					  
+					  <input type="checkbox" id="checkbox73">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal74">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal74">
 					  74
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -11694,27 +11567,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal74">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal74">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal74">
 					  a + c <= b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal74">
 					   a + c == b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox74" value="">
-					  
+					  <input type="checkbox" id="checkbox74">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal75">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal75">
 					  75
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -11846,27 +11717,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal75">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal75">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal75">
 					  a + c <= b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal75">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox75" value="">
-					  
+					  <input type="checkbox" id="checkbox75">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal76">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal76">
 					  76
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -11998,27 +11867,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal76">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal76">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal76">
 					  a + b <= c || a + c <= b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal76">
 					   a + b <= c != a + c <= b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox76" value="">
-					  
+					  <input type="checkbox" id="checkbox76">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal77">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal77">
 					  77
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -12150,27 +12017,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal77">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal77">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal77">
 					  a + b <= c || a + c <= b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal77">
 					   a + b <= c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox77" value="">
-					  
+					  <input type="checkbox" id="checkbox77">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal78">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal78">
 					  78
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -12302,27 +12167,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal78">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal78">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal78">
 					  a + b <= c || a + c <= b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal78">
 					   a + c <= b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox78" value="">
-					  
+					  <input type="checkbox" id="checkbox78">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal79">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal79">
 					  79
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -12454,27 +12317,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal79">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal79">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal79">
 					  a + b <= c || a + c <= b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal79">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox79" value="">
-					  
+					  <input type="checkbox" id="checkbox79">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal80">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal80">
 					  80
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -12606,27 +12467,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal80">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal80">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal80">
 					  b + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal80">
 					   b % c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox80" value="">
-					  
+					  <input type="checkbox" id="checkbox80">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal81">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal81">
 					  81
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -12758,27 +12617,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal81">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal81">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal81">
 					  b + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal81">
 					   b * c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox81" value="">
-					  
+					  <input type="checkbox" id="checkbox81">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal82">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal82">
 					  82
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -12910,27 +12767,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal82">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal82">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal82">
 					  b + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal82">
 					   b - c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox82" value="">
-					  
+					  <input type="checkbox" id="checkbox82">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal83">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal83">
 					  83
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -13062,27 +12917,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal83">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal83">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal83">
 					  b + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal83">
 					   b / c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox83" value="">
-					  
+					  <input type="checkbox" id="checkbox83">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal84">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal84">
 					  84
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -13214,27 +13067,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal84">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal84">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal84">
 					  b + c <= a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal84">
 					   b + c < a
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox84" value="">
-					  
+					  <input type="checkbox" id="checkbox84">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal85">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal85">
 					  85
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -13366,27 +13217,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal85">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal85">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal85">
 					  b + c <= a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal85">
 					   b + c == a
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox85" value="">
-					  
+					  <input type="checkbox" id="checkbox85">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal86">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal86">
 					  86
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -13518,27 +13367,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal86">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal86">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal86">
 					  b + c <= a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal86">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox86" value="">
-					  
+					  <input type="checkbox" id="checkbox86">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal87">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal87">
 					  87
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -13670,27 +13517,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal87">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal87">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal87">
 					  a + b <= c || a + c <= b || b + c <= a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal87">
 					   (a + b <= c || a + c <= b) != b + c <= a
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox87" value="">
-					  
+					  <input type="checkbox" id="checkbox87">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal88">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal88">
 					  88
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -13822,27 +13667,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal88">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal88">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal88">
 					  a + b <= c || a + c <= b || b + c <= a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal88">
 					   a + b <= c || a + c <= b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox88" value="">
-					  
+					  <input type="checkbox" id="checkbox88">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal89">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal89">
 					  89
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -13974,27 +13817,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal89">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal89">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal89">
 					  a + b <= c || a + c <= b || b + c <= a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal89">
 					   b + c <= a
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox89" value="">
-					  
+					  <input type="checkbox" id="checkbox89">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal90">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal90">
 					  90
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -14126,27 +13967,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal90">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal90">
 					  34
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal90">
 					  a + b <= c || a + c <= b || b + c <= a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal90">
 					   true
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox90" value="">
-					  
+					  <input type="checkbox" id="checkbox90">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal91">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal91">
 					  91
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -14278,27 +14117,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal91">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal91">
 					  35
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal91">
 					  return Type.INVALID; 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal91">
 					   return null;
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox91" value="">
-					  
+					  <input type="checkbox" id="checkbox91">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal92">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal92">
 					  92
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -14430,27 +14267,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal92">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal92">
 					  37
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal92">
 					  return Type.SCALENE; 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal92">
 					   return null;
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox92" value="">
-					  
+					  <input type="checkbox" id="checkbox92">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal93">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal93">
 					  93
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -14582,27 +14417,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal93">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal93">
 					  40
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal93">
 					  3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal93">
 					   0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox93" value="">
-					  
+					  <input type="checkbox" id="checkbox93">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal94">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal94">
 					  94
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -14734,27 +14567,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal94">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal94">
 					  40
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal94">
 					  3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal94">
 					   -3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox94" value="">
-					  
+					  <input type="checkbox" id="checkbox94">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal95">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal95">
 					  95
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -14886,27 +14717,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal95">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal95">
 					  40
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal95">
 					  trian > 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal95">
 					   trian != 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox95" value="">
-					  
+					  <input type="checkbox" id="checkbox95">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal96">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal96">
 					  96
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -15038,27 +14867,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal96">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal96">
 					  40
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal96">
 					  trian > 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal96">
 					   trian >= 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox96" value="">
-					  
+					  <input type="checkbox" id="checkbox96">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal97">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal97">
 					  97
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -15190,27 +15017,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal97">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal97">
 					  40
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal97">
 					  trian > 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal97">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox97" value="">
-					  
+					  <input type="checkbox" id="checkbox97">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal98">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal98">
 					  98
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -15342,27 +15167,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal98">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal98">
 					  41
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal98">
 					  return Type.EQUILATERAL; 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal98">
 					   return null;
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox98" value="">
-					  
+					  <input type="checkbox" id="checkbox98">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal99">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal99">
 					  99
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -15494,27 +15317,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal99">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal99">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal99">
 					  1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal99">
 					   0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox99" value="">
-					  
+					  <input type="checkbox" id="checkbox99">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal100">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal100">
 					  100
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -15646,27 +15467,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal100">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal100">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal100">
 					  1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal100">
 					   -1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox100" value="">
-					  
+					  <input type="checkbox" id="checkbox100">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal101">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal101">
 					  101
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -15798,27 +15617,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal101">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal101">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal101">
 					  trian == 1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal101">
 					   trian <= 1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox101" value="">
-					  
+					  <input type="checkbox" id="checkbox101">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal102">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal102">
 					  102
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -15950,27 +15767,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal102">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal102">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal102">
 					  trian == 1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal102">
 					   trian >= 1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox102" value="">
-					  
+					  <input type="checkbox" id="checkbox102">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal103">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal103">
 					  103
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -16102,27 +15917,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal103">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal103">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal103">
 					  trian == 1 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal103">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox103" value="">
-					  
+					  <input type="checkbox" id="checkbox103">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal104">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal104">
 					  104
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -16254,27 +16067,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal104">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal104">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal104">
 					  a + b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal104">
 					   a % b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox104" value="">
-					  
+					  <input type="checkbox" id="checkbox104">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal105">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal105">
 					  105
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -16406,27 +16217,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal105">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal105">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal105">
 					  a + b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal105">
 					   a * b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox105" value="">
-					  
+					  <input type="checkbox" id="checkbox105">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal106">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal106">
 					  106
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -16558,27 +16367,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal106">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal106">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal106">
 					  a + b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal106">
 					   a - b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox106" value="">
-					  
+					  <input type="checkbox" id="checkbox106">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal107">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal107">
 					  107
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -16710,27 +16517,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal107">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal107">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal107">
 					  a + b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal107">
 					   a / b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox107" value="">
-					  
+					  <input type="checkbox" id="checkbox107">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal108">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal108">
 					  108
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -16862,27 +16667,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal108">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal108">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal108">
 					  a + b > c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal108">
 					   a + b != c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox108" value="">
-					  
+					  <input type="checkbox" id="checkbox108">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal109">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal109">
 					  109
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -17014,27 +16817,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal109">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal109">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal109">
 					  a + b > c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal109">
 					   a + b >= c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox109" value="">
-					  
+					  <input type="checkbox" id="checkbox109">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal110">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal110">
 					  110
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -17166,27 +16967,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal110">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal110">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal110">
 					  a + b > c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal110">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox110" value="">
-					  
+					  <input type="checkbox" id="checkbox110">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal111">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal111">
 					  111
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -17318,27 +17117,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal111">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal111">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal111">
 					  trian == 1 && a + b > c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal111">
 					   trian == 1 == a + b > c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox111" value="">
-					  
+					  <input type="checkbox" id="checkbox111">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal112">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal112">
 					  112
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -17470,27 +17267,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal112">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal112">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal112">
 					  trian == 1 && a + b > c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal112">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox112" value="">
-					  
+					  <input type="checkbox" id="checkbox112">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal113">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal113">
 					  113
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -17622,27 +17417,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal113">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal113">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal113">
 					  trian == 1 && a + b > c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal113">
 					   trian == 1
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox113" value="">
-					  
+					  <input type="checkbox" id="checkbox113">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal114">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal114">
 					  114
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -17774,27 +17567,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal114">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal114">
 					  43
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal114">
 					  trian == 1 && a + b > c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal114">
 					   a + b > c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox114" value="">
-					  
+					  <input type="checkbox" id="checkbox114">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal115">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal115">
 					  115
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -17926,27 +17717,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal115">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal115">
 					  44
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal115">
 					  return Type.ISOSCELES; 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal115">
 					   return null;
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox115" value="">
-					  
+					  <input type="checkbox" id="checkbox115">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal116">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal116">
 					  116
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -18078,27 +17867,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal116">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal116">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal116">
 					  2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal116">
 					   0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox116" value="">
-					  
+					  <input type="checkbox" id="checkbox116">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal117">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal117">
 					  117
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -18230,27 +18017,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal117">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal117">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal117">
 					  2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal117">
 					   -2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox117" value="">
-					  
+					  <input type="checkbox" id="checkbox117">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal118">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal118">
 					  118
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -18382,27 +18167,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal118">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal118">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal118">
 					  trian == 2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal118">
 					   trian <= 2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox118" value="">
-					  
+					  <input type="checkbox" id="checkbox118">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal119">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal119">
 					  119
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -18534,27 +18317,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal119">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal119">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal119">
 					  trian == 2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal119">
 					   trian >= 2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox119" value="">
-					  
+					  <input type="checkbox" id="checkbox119">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal120">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal120">
 					  120
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -18686,27 +18467,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal120">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal120">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal120">
 					  trian == 2 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal120">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox120" value="">
-					  
+					  <input type="checkbox" id="checkbox120">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal121">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal121">
 					  121
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -18838,27 +18617,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal121">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal121">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal121">
 					  a + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal121">
 					   a % c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox121" value="">
-					  
+					  <input type="checkbox" id="checkbox121">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal122">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal122">
 					  122
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -18990,27 +18767,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal122">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal122">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal122">
 					  a + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal122">
 					   a * c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox122" value="">
-					  
+					  <input type="checkbox" id="checkbox122">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal123">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal123">
 					  123
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -19142,27 +18917,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal123">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal123">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal123">
 					  a + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal123">
 					   a - c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox123" value="">
-					  
+					  <input type="checkbox" id="checkbox123">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal124">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal124">
 					  124
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -19294,27 +19067,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal124">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal124">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal124">
 					  a + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal124">
 					   a / c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox124" value="">
-					  
+					  <input type="checkbox" id="checkbox124">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal125">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal125">
 					  125
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -19446,27 +19217,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal125">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal125">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal125">
 					  a + c > b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal125">
 					   a + c != b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox125" value="">
-					  
+					  <input type="checkbox" id="checkbox125">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal126">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal126">
 					  126
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -19598,27 +19367,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal126">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal126">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal126">
 					  a + c > b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal126">
 					   a + c >= b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox126" value="">
-					  
+					  <input type="checkbox" id="checkbox126">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal127">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal127">
 					  127
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -19750,27 +19517,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal127">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal127">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal127">
 					  a + c > b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal127">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox127" value="">
-					  
+					  <input type="checkbox" id="checkbox127">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal128">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal128">
 					  128
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -19902,27 +19667,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal128">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal128">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal128">
 					  trian == 2 && a + c > b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal128">
 					   trian == 2 == a + c > b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox128" value="">
-					  
+					  <input type="checkbox" id="checkbox128">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal129">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal129">
 					  129
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -20054,27 +19817,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal129">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal129">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal129">
 					  trian == 2 && a + c > b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal129">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox129" value="">
-					  
+					  <input type="checkbox" id="checkbox129">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal130">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal130">
 					  130
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -20206,27 +19967,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal130">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal130">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal130">
 					  trian == 2 && a + c > b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal130">
 					   trian == 2
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox130" value="">
-					  
+					  <input type="checkbox" id="checkbox130">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#ffecec" data-toggle="modal" data-backdrop="static" data-target="#myModal131">
-				   <td>
+				<tr style="background-color:#ffecec">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal131">
 					  131
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -20358,27 +20117,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal131">
 					  No
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal131">
 					  45
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal131">
 					  trian == 2 && a + c > b 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal131">
 					   a + c > b
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox131" value="">
-					  
+					  <input type="checkbox" id="checkbox131">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#eaffea" data-toggle="modal" data-backdrop="static" data-target="#myModal132">
-				   <td>
+				<tr style="background-color:#eaffea">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal132">
 					  132
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -20510,27 +20267,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal132">
 					  Yes
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal132">
 					  46
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal132">
 					  return Type.ISOSCELES; 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal132">
 					   return null;
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox132" value="">
-					  
+					  <input type="checkbox" id="checkbox132">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal133">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal133">
 					  133
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -20662,27 +20417,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal133">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal133">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal133">
 					  3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal133">
 					   0
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox133" value="">
-					  
+					  <input type="checkbox" id="checkbox133">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal134">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal134">
 					  134
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -20814,27 +20567,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal134">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal134">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal134">
 					  3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal134">
 					   -3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox134" value="">
-					  
+					  <input type="checkbox" id="checkbox134">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal135">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal135">
 					  135
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -20966,27 +20717,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal135">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal135">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal135">
 					  trian == 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal135">
 					   trian <= 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox135" value="">
-					  
+					  <input type="checkbox" id="checkbox135">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal136">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal136">
 					  136
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -21118,27 +20867,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal136">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal136">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal136">
 					  trian == 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal136">
 					   trian >= 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox136" value="">
-					  
+					  <input type="checkbox" id="checkbox136">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal137">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal137">
 					  137
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -21270,27 +21017,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal137">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal137">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal137">
 					  trian == 3 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal137">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox137" value="">
-					  
+					  <input type="checkbox" id="checkbox137">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal138">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal138">
 					  138
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -21422,27 +21167,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal138">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal138">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal138">
 					  b + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal138">
 					   b % c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox138" value="">
-					  
+					  <input type="checkbox" id="checkbox138">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal139">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal139">
 					  139
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -21574,27 +21317,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal139">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal139">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal139">
 					  b + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal139">
 					   b * c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox139" value="">
-					  
+					  <input type="checkbox" id="checkbox139">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal140">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal140">
 					  140
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -21726,27 +21467,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal140">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal140">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal140">
 					  b + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal140">
 					   b - c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox140" value="">
-					  
+					  <input type="checkbox" id="checkbox140">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal141">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal141">
 					  141
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -21878,27 +21617,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal141">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal141">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal141">
 					  b + c 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal141">
 					   b / c
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox141" value="">
-					  
+					  <input type="checkbox" id="checkbox141">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal142">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal142">
 					  142
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -22030,27 +21767,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal142">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal142">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal142">
 					  b + c > a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal142">
 					   b + c != a
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox142" value="">
-					  
+					  <input type="checkbox" id="checkbox142">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal143">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal143">
 					  143
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -22182,27 +21917,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal143">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal143">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal143">
 					  b + c > a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal143">
 					   b + c >= a
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox143" value="">
-					  
+					  <input type="checkbox" id="checkbox143">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal144">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal144">
 					  144
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -22334,27 +22067,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal144">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal144">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal144">
 					  b + c > a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal144">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox144" value="">
-					  
+					  <input type="checkbox" id="checkbox144">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal145">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal145">
 					  145
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -22486,27 +22217,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal145">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal145">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal145">
 					  trian == 3 && b + c > a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal145">
 					   trian == 3 == b + c > a
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox145" value="">
-					  
+					  <input type="checkbox" id="checkbox145">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal146">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal146">
 					  146
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -22638,27 +22367,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal146">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal146">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal146">
 					  trian == 3 && b + c > a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal146">
 					   false
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox146" value="">
-					  
+					  <input type="checkbox" id="checkbox146">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal147">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal147">
 					  147
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -22790,27 +22517,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal147">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal147">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal147">
 					  trian == 3 && b + c > a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal147">
 					   trian == 3
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox147" value="">
-					  
+					  <input type="checkbox" id="checkbox147">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal148">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal148">
 					  148
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -22942,27 +22667,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal148">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal148">
 					  47
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal148">
 					  trian == 3 && b + c > a 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal148">
 					   b + c > a
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox148" value="">
-					  
+					  <input type="checkbox" id="checkbox148">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal149">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal149">
 					  149
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -23094,27 +22817,25 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal149">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal149">
 					  48
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal149">
 					  return Type.ISOSCELES; 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal149">
 					   return null;
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox149" value="">
-					  
+					  <input type="checkbox" id="checkbox149">
 				   </td>
 				</tr>
 			   
-				<tr style="background-color:#D1C4E9" data-toggle="modal" data-backdrop="static" data-target="#myModal150">
-				   <td>
+				<tr style="background-color:#D1C4E9">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal150">
 					  150
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -23246,22 +22967,20 @@ public class Triangle {
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal150">
 					  Not Covered
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal150">
 					  50
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal150">
 					  return Type.INVALID; 
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModal150">
 					   return null;
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkbox150" value="">
-					  
+					  <input type="checkbox" id="checkbox150">
 				   </td>
 				</tr>
 			   

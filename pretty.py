@@ -28,6 +28,25 @@ html_header = r"""<!DOCTYPE html>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
+	$(document).ready(function() {
+	var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {};
+	var $checkboxes = $(':checkbox');
+	
+	$checkboxes.on("change", function(){
+		$checkboxes.each(function(){
+			checkboxValues[this.id] = this.checked;
+		});
+		console.log(JSON.stringify(checkboxValues));
+		localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
+	});
+	
+	$.each(checkboxValues, function(key, value) {
+		$("#" + key).prop('checked', value);
+	});
+     
+	}); 
+	</script>
+	<script>
 				   /*!
 				   * Chart.js
 				   * http://chartjs.org/
@@ -483,11 +502,11 @@ html_summary = r"""<div class = "visualizations">
             </tr>
 
 			</thead>
-         <tbody>
+         <tbody id="checkbox-container">
 	  """
 html_table_rows = r"""
-				<tr style="background-color:COLOR_CLASS" data-toggle="modal" data-backdrop="static" data-target="#myModalMUTANT_ID">
-				   <td>
+				<tr style="background-color:COLOR_CLASS">
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModalMUTANT_ID">
 					  MUTANT_ID
 					  <div class = "viewExpandCode">
 						 <!-- Modal -->
@@ -514,22 +533,20 @@ html_table_rows = r"""
 						 </div>
 					  </div>
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModalMUTANT_ID">
 					  MUTANT_KILLED
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModalMUTANT_ID">
 					  MUTANT_CODE_CHANGE_LINE
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModalMUTANT_ID">
 					  MUTANT_CODE_CHANGE_BEFORE
 				   </td>
-				   <td>
+				   <td data-toggle="modal" data-backdrop="static" data-target="#myModalMUTANT_ID">
 					  MUTANT_CODE_CHANGE_AFTER
 				   </td>
 				   <td>
-					  
-					  <input type="checkbox" id="checkboxMUTANT_ID" value="">
-					  
+					  <input type="checkbox" id="checkboxMUTANT_ID">
 				   </td>
 				</tr>
 			   """
