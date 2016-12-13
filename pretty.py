@@ -95,6 +95,7 @@ html_header = r"""<!DOCTYPE html>
 	});
 	}); 
 	</script>
+	
 	<script>
 	$(document).ready(function() 
     { 
@@ -129,6 +130,25 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 !function(){function e(e,t){return Array.prototype.slice.call((t||document).querySelectorAll(e))}function t(e,t){return t=" "+t+" ",(" "+e.className+" ").replace(/[\n\t]/g," ").indexOf(t)>-1}function n(e,n,i){for(var o,a=n.replace(/\s+/g,"").split(","),l=+e.getAttribute("data-line-offset")||0,d=r()?parseInt:parseFloat,c=d(getComputedStyle(e).lineHeight),s=0;o=a[s++];){o=o.split("-");var u=+o[0],m=+o[1]||u,h=document.createElement("div");h.textContent=Array(m-u+2).join(" \n"),h.setAttribute("aria-hidden","true"),h.className=(i||"")+" line-highlight",t(e,"line-numbers")||(h.setAttribute("data-start",u),m>u&&h.setAttribute("data-end",m)),h.style.top=(u-l-1)*c+"px",t(e,"line-numbers")?e.appendChild(h):(e.querySelector("code")||e).appendChild(h)}}function i(){var t=location.hash.slice(1);e(".temporary.line-highlight").forEach(function(e){e.parentNode.removeChild(e)});var i=(t.match(/\.([\d,-]+)$/)||[,""])[1];if(i&&!document.getElementById(t)){var r=t.slice(0,t.lastIndexOf(".")),o=document.getElementById(r);o&&(o.hasAttribute("data-line")||o.setAttribute("data-line",""),n(o,i,"temporary "),document.querySelector(".temporary.line-highlight").scrollIntoView())}}if("undefined"!=typeof self&&self.Prism&&self.document&&document.querySelector){var r=function(){var e;return function(){if("undefined"==typeof e){var t=document.createElement("div");t.style.fontSize="13px",t.style.lineHeight="1.5",t.style.padding=0,t.style.border=0,t.innerHTML="&nbsp;<br />&nbsp;",document.body.appendChild(t),e=38===t.offsetHeight,document.body.removeChild(t)}return e}}(),o=0;Prism.hooks.add("complete",function(t){var r=t.element.parentNode,a=r&&r.getAttribute("data-line");r&&a&&/pre/i.test(r.nodeName)&&(clearTimeout(o),e(".line-highlight",r).forEach(function(e){e.parentNode.removeChild(e)}),n(r,a),o=setTimeout(i,1))}),window.addEventListener&&window.addEventListener("hashchange",i)}}();
 !function(){"undefined"!=typeof self&&self.Prism&&self.document&&Prism.hooks.add("complete",function(e){if(e.code){var t=e.element.parentNode,s=/\s*\bline-numbers\b\s*/;if(t&&/pre/i.test(t.nodeName)&&(s.test(t.className)||s.test(e.element.className))&&!e.element.querySelector(".line-numbers-rows")){s.test(e.element.className)&&(e.element.className=e.element.className.replace(s,"")),s.test(t.className)||(t.className+=" line-numbers");var n,a=e.code.match(/\n(?!$)/g),l=a?a.length+1:1,r=new Array(l+1);r=r.join("<span></span>"),n=document.createElement("span"),n.setAttribute("aria-hidden","true"),n.className="line-numbers-rows",n.innerHTML=r,t.hasAttribute("data-start")&&(t.style.counterReset="linenumber "+(parseInt(t.getAttribute("data-start"),10)-1)),e.element.appendChild(n)}}})}();
 
+	</script>
+	
+	<script>
+	 function StartedFromTheBottomNowWeAtTheTop(input){
+	   if(input === 'killed'){
+		$(".killed").each(function() {
+		$(this).prependTo("#mutantTable");
+	   });
+	   } else if(input === 'alive'){
+	   $(".alive").each(function() {
+		$(this).prependTo("#mutantTable");
+	   });
+	   } else {
+	   $(".uncovered").each(function() {
+		$(this).prependTo("#mutantTable");
+	   });
+	   }	   
+	 }
+	 
 	</script>
 	
 	<style>
@@ -630,7 +650,7 @@ html_summary = r"""<div class = "visualizations">
          </div>
       </div>
 	  <br>
-      <table class="table tablesorter" id="mutantTable">
+      <table class="table tablesorter filterable" id="mutantTable">
          <h1> Detailed Analysis </h1>
          <br>
          <thead class ="myTable">
@@ -660,7 +680,7 @@ html_summary = r"""<div class = "visualizations">
          <tbody id="checkbox-container">
 	  """
 html_table_rows = r"""
-				<tr style="background-color:COLOR_CLASS">
+				<tr style="background-color:COLOR_CLASS" class="elephant MUTANT_CLASS_KILLED">
 				   <td data-toggle="collapse" data-target="#accordianMUTANT_ID">
 					  MUTANT_ID
 				   </td>
@@ -763,15 +783,18 @@ html_footer = r"""
 						 }]
 						 }
 						 });
-				</script>
-				<script>
-				$(document).ready(function() {
-					var chart = document.getElementById("killedMutants");
+				
+					var chart = document.getElementById("killedMutants").getContext('2d');
 					document.getElementById("killedMutants").onclick = function(evt)
 					{   
-						 $("#mutantTable").prepend(tr.find("input[value='Not Covered']").closest('tr'));
-					}				 
-				}); 
+						var activePoints = myChart.getElementsAtEvent(evt);           
+						console.log(activePoints);
+						if(activePoints.length==0){
+							StartedFromTheBottomNowWeAtTheTop('alive');
+						} else {
+							StartedFromTheBottomNowWeAtTheTop('killed');
+						}
+					} 
 
 				</script>
 				</body>
@@ -845,15 +868,19 @@ def add_data():
 	for i in range(1,len(diffs_dict)+1):
 		# print(killed_dict[str(i)])
 		tempvar = ''
+		tempvar2 = ''
 		tempcolor = ''
 		if killed_dict.get(str(i)) == 'FAIL':
 			tempvar = 'Yes'
+			tempvar2 = 'killed'
 			tempcolor = '#eaffea'
 		elif killed_dict.get(str(i)) == 'LIVE':
 			tempvar = 'No'
+			tempvar2 = 'alive'
 			tempcolor = '#ffecec'
 		else:
 			tempvar = "Not Covered"
+			tempvar2 = 'uncovered'
 			tempcolor = '#D1C4E9'
 		repls2 = {'MUTANT_ID' : str(i), 'MUTANT_CODE_CHANGE_LINE' : diffs_dict[str(i)][1],
 		'MUTANT_KILLED' : tempvar,
@@ -862,7 +889,8 @@ def add_data():
 		'MUTANT_EQUIVALENT' : "Not working rn",
 		'ORIGINAL_SOURCE_CODE' : original_source_file,
 		'MUTANT_SOURCE_CODE': mutant_list[i],
-		'COLOR_CLASS': tempcolor}
+		'COLOR_CLASS': tempcolor,
+		'MUTANT_CLASS_KILLED': tempvar2}
 		
 		html_table_rows_built += reduce(lambda a, keyvalue: a.replace(*keyvalue), repls2.iteritems(), html_table_rows)
 	repls1 = {'MUTANTS_KILLED_ACTUAL' : summary_dict['MutantsKilled'], 'MUTANTS_ALIVE_ACTUAL' : summary_dict['MutantsLive'],
