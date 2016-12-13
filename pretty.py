@@ -10,7 +10,7 @@ import cgitb; cgitb.enable()
 import re
 import subprocess
 
-debug = True;
+debug = False;
 killed_mutants_dir = "mutation_results/killed.csv"
 summary_mutants_dir = "mutation_results/summary.csv"
 log_mutants_path = "mutation_results/mutants.log"
@@ -133,18 +133,26 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	</script>
 	
 	<script>
-	 function StartedFromTheBottomNowWeAtTheTop(input){
+	 function StartedFromTheBottomNowWeAtTheTopNowWeBackAtTheBottom(input){
 	   if(input === 'killed'){
 		$(".killed").each(function() {
+	    var child = $(this).closest('tr').next('tr');
 		$(this).prependTo("#mutantTable");
+		$(this).insertAfter(child);
+
 	   });
 	   } else if(input === 'alive'){
 	   $(".alive").each(function() {
+	    var child = $(this).closest('tr').next('tr');
 		$(this).prependTo("#mutantTable");
+		$(this).insertAfter(child);
+
 	   });
 	   } else {
 	   $(".uncovered").each(function() {
+	    var child = $(this).closest('tr').next('tr');
 		$(this).prependTo("#mutantTable");
+		$(this).insertAfter(child);
 	   });
 	   }	   
 	 }
