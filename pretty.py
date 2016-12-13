@@ -57,13 +57,13 @@ var firstAvailCol;if(typeof(matrix[rowIndex])=="undefined"){matrix[rowIndex]=[];
 	<script>
 	$(document).ready(function() {
 	$("tr :checkbox").on("change", function(){
-		console.log($(this).closest("tr").find("#mutant_killed").html());
+		var text = $(this).closest("tr").find("#mutant_killed").html();
 		if (this.checked) {
 			$(this).closest("tr").css('background-color', "#FFF9C4");
 		} else {
-			if ( $(this).closest("tr").find("#mutant_killed").html().includes("Yes")){
+			if ( text.includes("Yes")){
 				$(this).closest("tr").css('background-color', "#eaffea");
-			} else if( $(this).closest("tr").find("#mutant_killed").html().includes("Covered")){
+			} else if( text.includes("Covered")){
 				$(this).closest("tr").css('background-color', "#D1C4E9");
 			} else {
 				$(this).closest("tr").css('background-color', "#ffecec");
@@ -147,24 +147,24 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	}
 	
 	label .circle          {
-	  background:#FFF;
-	  left:-30px;
-	  top:-30px;
-	  height:60px;
-	  width:60px;
-	  z-index:-1;
+	  background:transparent;
+	  left:-8px;
+	  top:-7px;
+	  height:30px;
+	  width:30px;
+	  z-index:1;
 	  border-radius:50%; -moz-border-radius:50%; -webkit-border-radius:50%;
 	}
 	label .box     {
 	  border:2px solid #7E57C2;
 	  height:15px;
-	  top: -2px;
+	  top: 0px;
 	  width:15px;
 	  z-index:888;
 	  -webkit-transition-delay:0.0s; -moz-transition-delay:0.0s; transition-delay:0.0s;
 	}
 	label .check         {
-	  top: -2px;
+	  top: -1px;
 	  left: 3px;
 	  width: 8px;
 	  height: 18px;
@@ -202,15 +202,15 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 
 	@-webkit-keyframes growCircle {
 	  0%, 100%   { -webkit-transform:scale(0); }
-	  70%        { background:#DDD; -webkit-transform:scale(1.25); }
+	  70%        { background:#B2DFDB; -webkit-transform:scale(1.25); }
 	}
 	@-moz-keyframes growCircle {
 	  0%, 100%   { -moz-transform:scale(0); }
-	  70%        { background:#DDD; -moz-transform:scale(1.25); }
+	  70%        { background:#B2DFDB; -moz-transform:scale(1.25); }
 	}
 	@keyframes growCircle {
 	  0%, 100%   { transform:scale(0); }
-	  70%        { background:#DDD; transform:scale(1.25); }
+	  70%        { background:#B2DFDB; transform:scale(1.25); }
 	}
 	</style>
 	
