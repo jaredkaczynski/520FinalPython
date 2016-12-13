@@ -47,8 +47,32 @@ var firstAvailCol;if(typeof(matrix[rowIndex])=="undefined"){matrix[rowIndex]=[];
 	
 	$.each(checkboxValues, function(key, value) {
 		$("#" + key).prop('checked', value);
+		if (value) {
+			$("#" + key).closest("tr").css('background-color', "#FFF9C4");
+		}
 	});
      
+	}); 
+	</script>
+	<script>
+	$(document).ready(function() {
+	$("tr :checkbox").on("change", function(){
+		console.log($(this).closest("tr").find("#mutant_killed").html());
+		if (this.checked) {
+			$(this).closest("tr").css('background-color', "#FFF9C4");
+		} else {
+			if ( $(this).closest("tr").find("#mutant_killed").html().includes("Yes")){
+				$(this).closest("tr").css('background-color', "#eaffea");
+			} else if( $(this).closest("tr").find("#mutant_killed").html().includes("Covered")){
+				$(this).closest("tr").css('background-color', "#D1C4E9");
+			} else {
+				$(this).closest("tr").css('background-color', "#ffecec");
+			}
+		}
+		console.log("running");
+		console.log($(this).closest("tr"));
+		
+	});
 	}); 
 	</script>
 	<script>
@@ -587,17 +611,17 @@ html_summary = r"""<div class = "visualizations">
          <div class = "well">
             <div class="row">
                <div class="col-md-4">
-                  <h4 align="center"> <strong>Mutation Score</strong></h4>
+                  <h4 align="center"> <strong>Mutation Coverage</strong></h4>
                   <br>
                   <canvas id="mutationScore"></canvas>
                </div>
 			   <div class="col-md-4">
-                  <h4 align="center"> <strong>Run Time </strong></h4>
+                  <h4 align="center"> <strong>Run Time</strong></h4>
                   <br>
                   <canvas id="runTime"></canvas>
                </div>
                <div class="col-md-4">
-                  <h4 align="center"> <strong>Killed vs. Non Killed Mutants </strong></h4>
+                  <h4 align="center"> <strong>Mutation Score</strong></h4>
                   <br>
                   <canvas id="killedMutants"></canvas>
                </div>
@@ -639,7 +663,7 @@ html_table_rows = r"""
 				   <td data-toggle="collapse" data-target="#accordianMUTANT_ID">
 					  MUTANT_ID
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordianMUTANT_ID">
+				   <td data-toggle="collapse" data-target="#accordianMUTANT_ID" id="mutant_killed"> 
 					  MUTANT_KILLED
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordianMUTANT_ID">

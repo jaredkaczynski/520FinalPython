@@ -29,8 +29,32 @@ var firstAvailCol;if(typeof(matrix[rowIndex])=="undefined"){matrix[rowIndex]=[];
 	
 	$.each(checkboxValues, function(key, value) {
 		$("#" + key).prop('checked', value);
+		if (value) {
+			$("#" + key).closest("tr").css('background-color', "#FFF9C4");
+		}
 	});
      
+	}); 
+	</script>
+	<script>
+	$(document).ready(function() {
+	$("tr :checkbox").on("change", function(){
+		console.log($(this).closest("tr").find("#mutant_killed").html());
+		if (this.checked) {
+			$(this).closest("tr").css('background-color', "#FFF9C4");
+		} else {
+			if ( $(this).closest("tr").find("#mutant_killed").html().includes("Yes")){
+				$(this).closest("tr").css('background-color', "#eaffea");
+			} else if( $(this).closest("tr").find("#mutant_killed").html().includes("Covered")){
+				$(this).closest("tr").css('background-color', "#D1C4E9");
+			} else {
+				$(this).closest("tr").css('background-color', "#ffecec");
+			}
+		}
+		console.log("running");
+		console.log($(this).closest("tr"));
+		
+	});
 	}); 
 	</script>
 	<script>
@@ -567,17 +591,17 @@ pre.line-numbers > code {
          <div class = "well">
             <div class="row">
                <div class="col-md-4">
-                  <h4 align="center"> <strong>Mutation Score</strong></h4>
+                  <h4 align="center"> <strong>Mutation Coverage</strong></h4>
                   <br>
                   <canvas id="mutationScore"></canvas>
                </div>
 			   <div class="col-md-4">
-                  <h4 align="center"> <strong>Run Time </strong></h4>
+                  <h4 align="center"> <strong>Run Time</strong></h4>
                   <br>
                   <canvas id="runTime"></canvas>
                </div>
                <div class="col-md-4">
-                  <h4 align="center"> <strong>Killed vs. Non Killed Mutants </strong></h4>
+                  <h4 align="center"> <strong>Mutation Score</strong></h4>
                   <br>
                   <canvas id="killedMutants"></canvas>
                </div>
@@ -618,7 +642,7 @@ pre.line-numbers > code {
 				   <td data-toggle="collapse" data-target="#accordian1">
 					  1
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian1">
+				   <td data-toggle="collapse" data-target="#accordian1" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian1">
@@ -762,7 +786,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian2">
 					  2
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian2">
+				   <td data-toggle="collapse" data-target="#accordian2" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian2">
@@ -906,7 +930,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian3">
 					  3
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian3">
+				   <td data-toggle="collapse" data-target="#accordian3" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian3">
@@ -1050,7 +1074,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian4">
 					  4
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian4">
+				   <td data-toggle="collapse" data-target="#accordian4" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian4">
@@ -1194,7 +1218,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian5">
 					  5
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian5">
+				   <td data-toggle="collapse" data-target="#accordian5" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian5">
@@ -1338,7 +1362,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian6">
 					  6
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian6">
+				   <td data-toggle="collapse" data-target="#accordian6" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian6">
@@ -1482,7 +1506,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian7">
 					  7
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian7">
+				   <td data-toggle="collapse" data-target="#accordian7" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian7">
@@ -1626,7 +1650,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian8">
 					  8
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian8">
+				   <td data-toggle="collapse" data-target="#accordian8" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian8">
@@ -1770,7 +1794,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian9">
 					  9
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian9">
+				   <td data-toggle="collapse" data-target="#accordian9" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian9">
@@ -1914,7 +1938,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian10">
 					  10
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian10">
+				   <td data-toggle="collapse" data-target="#accordian10" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian10">
@@ -2058,7 +2082,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian11">
 					  11
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian11">
+				   <td data-toggle="collapse" data-target="#accordian11" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian11">
@@ -2202,7 +2226,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian12">
 					  12
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian12">
+				   <td data-toggle="collapse" data-target="#accordian12" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian12">
@@ -2346,7 +2370,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian13">
 					  13
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian13">
+				   <td data-toggle="collapse" data-target="#accordian13" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian13">
@@ -2490,7 +2514,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian14">
 					  14
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian14">
+				   <td data-toggle="collapse" data-target="#accordian14" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian14">
@@ -2634,7 +2658,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian15">
 					  15
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian15">
+				   <td data-toggle="collapse" data-target="#accordian15" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian15">
@@ -2778,7 +2802,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian16">
 					  16
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian16">
+				   <td data-toggle="collapse" data-target="#accordian16" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian16">
@@ -2922,7 +2946,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian17">
 					  17
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian17">
+				   <td data-toggle="collapse" data-target="#accordian17" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian17">
@@ -3066,7 +3090,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian18">
 					  18
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian18">
+				   <td data-toggle="collapse" data-target="#accordian18" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian18">
@@ -3210,7 +3234,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian19">
 					  19
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian19">
+				   <td data-toggle="collapse" data-target="#accordian19" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian19">
@@ -3354,7 +3378,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian20">
 					  20
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian20">
+				   <td data-toggle="collapse" data-target="#accordian20" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian20">
@@ -3498,7 +3522,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian21">
 					  21
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian21">
+				   <td data-toggle="collapse" data-target="#accordian21" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian21">
@@ -3642,7 +3666,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian22">
 					  22
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian22">
+				   <td data-toggle="collapse" data-target="#accordian22" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian22">
@@ -3786,7 +3810,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian23">
 					  23
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian23">
+				   <td data-toggle="collapse" data-target="#accordian23" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian23">
@@ -3930,7 +3954,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian24">
 					  24
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian24">
+				   <td data-toggle="collapse" data-target="#accordian24" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian24">
@@ -4074,7 +4098,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian25">
 					  25
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian25">
+				   <td data-toggle="collapse" data-target="#accordian25" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian25">
@@ -4218,7 +4242,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian26">
 					  26
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian26">
+				   <td data-toggle="collapse" data-target="#accordian26" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian26">
@@ -4362,7 +4386,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian27">
 					  27
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian27">
+				   <td data-toggle="collapse" data-target="#accordian27" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian27">
@@ -4506,7 +4530,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian28">
 					  28
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian28">
+				   <td data-toggle="collapse" data-target="#accordian28" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian28">
@@ -4650,7 +4674,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian29">
 					  29
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian29">
+				   <td data-toggle="collapse" data-target="#accordian29" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian29">
@@ -4794,7 +4818,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian30">
 					  30
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian30">
+				   <td data-toggle="collapse" data-target="#accordian30" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian30">
@@ -4938,7 +4962,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian31">
 					  31
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian31">
+				   <td data-toggle="collapse" data-target="#accordian31" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian31">
@@ -5082,7 +5106,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian32">
 					  32
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian32">
+				   <td data-toggle="collapse" data-target="#accordian32" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian32">
@@ -5226,7 +5250,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian33">
 					  33
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian33">
+				   <td data-toggle="collapse" data-target="#accordian33" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian33">
@@ -5370,7 +5394,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian34">
 					  34
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian34">
+				   <td data-toggle="collapse" data-target="#accordian34" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian34">
@@ -5514,7 +5538,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian35">
 					  35
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian35">
+				   <td data-toggle="collapse" data-target="#accordian35" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian35">
@@ -5658,7 +5682,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian36">
 					  36
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian36">
+				   <td data-toggle="collapse" data-target="#accordian36" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian36">
@@ -5802,7 +5826,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian37">
 					  37
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian37">
+				   <td data-toggle="collapse" data-target="#accordian37" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian37">
@@ -5946,7 +5970,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian38">
 					  38
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian38">
+				   <td data-toggle="collapse" data-target="#accordian38" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian38">
@@ -6090,7 +6114,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian39">
 					  39
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian39">
+				   <td data-toggle="collapse" data-target="#accordian39" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian39">
@@ -6234,7 +6258,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian40">
 					  40
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian40">
+				   <td data-toggle="collapse" data-target="#accordian40" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian40">
@@ -6378,7 +6402,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian41">
 					  41
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian41">
+				   <td data-toggle="collapse" data-target="#accordian41" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian41">
@@ -6522,7 +6546,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian42">
 					  42
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian42">
+				   <td data-toggle="collapse" data-target="#accordian42" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian42">
@@ -6666,7 +6690,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian43">
 					  43
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian43">
+				   <td data-toggle="collapse" data-target="#accordian43" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian43">
@@ -6810,7 +6834,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian44">
 					  44
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian44">
+				   <td data-toggle="collapse" data-target="#accordian44" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian44">
@@ -6954,7 +6978,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian45">
 					  45
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian45">
+				   <td data-toggle="collapse" data-target="#accordian45" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian45">
@@ -7098,7 +7122,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian46">
 					  46
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian46">
+				   <td data-toggle="collapse" data-target="#accordian46" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian46">
@@ -7242,7 +7266,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian47">
 					  47
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian47">
+				   <td data-toggle="collapse" data-target="#accordian47" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian47">
@@ -7386,7 +7410,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian48">
 					  48
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian48">
+				   <td data-toggle="collapse" data-target="#accordian48" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian48">
@@ -7530,7 +7554,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian49">
 					  49
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian49">
+				   <td data-toggle="collapse" data-target="#accordian49" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian49">
@@ -7674,7 +7698,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian50">
 					  50
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian50">
+				   <td data-toggle="collapse" data-target="#accordian50" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian50">
@@ -7818,7 +7842,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian51">
 					  51
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian51">
+				   <td data-toggle="collapse" data-target="#accordian51" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian51">
@@ -7962,7 +7986,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian52">
 					  52
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian52">
+				   <td data-toggle="collapse" data-target="#accordian52" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian52">
@@ -8106,7 +8130,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian53">
 					  53
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian53">
+				   <td data-toggle="collapse" data-target="#accordian53" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian53">
@@ -8250,7 +8274,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian54">
 					  54
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian54">
+				   <td data-toggle="collapse" data-target="#accordian54" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian54">
@@ -8394,7 +8418,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian55">
 					  55
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian55">
+				   <td data-toggle="collapse" data-target="#accordian55" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian55">
@@ -8538,7 +8562,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian56">
 					  56
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian56">
+				   <td data-toggle="collapse" data-target="#accordian56" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian56">
@@ -8682,7 +8706,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian57">
 					  57
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian57">
+				   <td data-toggle="collapse" data-target="#accordian57" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian57">
@@ -8826,7 +8850,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian58">
 					  58
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian58">
+				   <td data-toggle="collapse" data-target="#accordian58" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian58">
@@ -8970,7 +8994,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian59">
 					  59
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian59">
+				   <td data-toggle="collapse" data-target="#accordian59" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian59">
@@ -9114,7 +9138,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian60">
 					  60
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian60">
+				   <td data-toggle="collapse" data-target="#accordian60" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian60">
@@ -9258,7 +9282,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian61">
 					  61
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian61">
+				   <td data-toggle="collapse" data-target="#accordian61" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian61">
@@ -9402,7 +9426,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian62">
 					  62
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian62">
+				   <td data-toggle="collapse" data-target="#accordian62" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian62">
@@ -9546,7 +9570,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian63">
 					  63
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian63">
+				   <td data-toggle="collapse" data-target="#accordian63" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian63">
@@ -9690,7 +9714,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian64">
 					  64
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian64">
+				   <td data-toggle="collapse" data-target="#accordian64" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian64">
@@ -9834,7 +9858,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian65">
 					  65
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian65">
+				   <td data-toggle="collapse" data-target="#accordian65" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian65">
@@ -9978,7 +10002,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian66">
 					  66
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian66">
+				   <td data-toggle="collapse" data-target="#accordian66" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian66">
@@ -10122,7 +10146,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian67">
 					  67
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian67">
+				   <td data-toggle="collapse" data-target="#accordian67" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian67">
@@ -10266,7 +10290,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian68">
 					  68
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian68">
+				   <td data-toggle="collapse" data-target="#accordian68" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian68">
@@ -10410,7 +10434,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian69">
 					  69
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian69">
+				   <td data-toggle="collapse" data-target="#accordian69" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian69">
@@ -10554,7 +10578,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian70">
 					  70
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian70">
+				   <td data-toggle="collapse" data-target="#accordian70" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian70">
@@ -10698,7 +10722,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian71">
 					  71
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian71">
+				   <td data-toggle="collapse" data-target="#accordian71" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian71">
@@ -10842,7 +10866,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian72">
 					  72
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian72">
+				   <td data-toggle="collapse" data-target="#accordian72" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian72">
@@ -10986,7 +11010,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian73">
 					  73
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian73">
+				   <td data-toggle="collapse" data-target="#accordian73" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian73">
@@ -11130,7 +11154,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian74">
 					  74
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian74">
+				   <td data-toggle="collapse" data-target="#accordian74" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian74">
@@ -11274,7 +11298,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian75">
 					  75
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian75">
+				   <td data-toggle="collapse" data-target="#accordian75" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian75">
@@ -11418,7 +11442,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian76">
 					  76
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian76">
+				   <td data-toggle="collapse" data-target="#accordian76" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian76">
@@ -11562,7 +11586,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian77">
 					  77
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian77">
+				   <td data-toggle="collapse" data-target="#accordian77" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian77">
@@ -11706,7 +11730,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian78">
 					  78
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian78">
+				   <td data-toggle="collapse" data-target="#accordian78" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian78">
@@ -11850,7 +11874,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian79">
 					  79
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian79">
+				   <td data-toggle="collapse" data-target="#accordian79" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian79">
@@ -11994,7 +12018,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian80">
 					  80
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian80">
+				   <td data-toggle="collapse" data-target="#accordian80" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian80">
@@ -12138,7 +12162,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian81">
 					  81
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian81">
+				   <td data-toggle="collapse" data-target="#accordian81" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian81">
@@ -12282,7 +12306,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian82">
 					  82
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian82">
+				   <td data-toggle="collapse" data-target="#accordian82" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian82">
@@ -12426,7 +12450,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian83">
 					  83
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian83">
+				   <td data-toggle="collapse" data-target="#accordian83" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian83">
@@ -12570,7 +12594,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian84">
 					  84
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian84">
+				   <td data-toggle="collapse" data-target="#accordian84" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian84">
@@ -12714,7 +12738,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian85">
 					  85
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian85">
+				   <td data-toggle="collapse" data-target="#accordian85" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian85">
@@ -12858,7 +12882,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian86">
 					  86
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian86">
+				   <td data-toggle="collapse" data-target="#accordian86" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian86">
@@ -13002,7 +13026,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian87">
 					  87
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian87">
+				   <td data-toggle="collapse" data-target="#accordian87" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian87">
@@ -13146,7 +13170,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian88">
 					  88
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian88">
+				   <td data-toggle="collapse" data-target="#accordian88" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian88">
@@ -13290,7 +13314,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian89">
 					  89
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian89">
+				   <td data-toggle="collapse" data-target="#accordian89" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian89">
@@ -13434,7 +13458,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian90">
 					  90
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian90">
+				   <td data-toggle="collapse" data-target="#accordian90" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian90">
@@ -13578,7 +13602,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian91">
 					  91
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian91">
+				   <td data-toggle="collapse" data-target="#accordian91" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian91">
@@ -13722,7 +13746,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian92">
 					  92
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian92">
+				   <td data-toggle="collapse" data-target="#accordian92" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian92">
@@ -13866,7 +13890,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian93">
 					  93
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian93">
+				   <td data-toggle="collapse" data-target="#accordian93" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian93">
@@ -14010,7 +14034,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian94">
 					  94
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian94">
+				   <td data-toggle="collapse" data-target="#accordian94" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian94">
@@ -14154,7 +14178,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian95">
 					  95
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian95">
+				   <td data-toggle="collapse" data-target="#accordian95" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian95">
@@ -14298,7 +14322,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian96">
 					  96
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian96">
+				   <td data-toggle="collapse" data-target="#accordian96" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian96">
@@ -14442,7 +14466,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian97">
 					  97
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian97">
+				   <td data-toggle="collapse" data-target="#accordian97" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian97">
@@ -14586,7 +14610,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian98">
 					  98
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian98">
+				   <td data-toggle="collapse" data-target="#accordian98" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian98">
@@ -14730,7 +14754,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian99">
 					  99
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian99">
+				   <td data-toggle="collapse" data-target="#accordian99" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian99">
@@ -14874,7 +14898,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian100">
 					  100
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian100">
+				   <td data-toggle="collapse" data-target="#accordian100" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian100">
@@ -15018,7 +15042,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian101">
 					  101
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian101">
+				   <td data-toggle="collapse" data-target="#accordian101" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian101">
@@ -15162,7 +15186,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian102">
 					  102
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian102">
+				   <td data-toggle="collapse" data-target="#accordian102" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian102">
@@ -15306,7 +15330,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian103">
 					  103
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian103">
+				   <td data-toggle="collapse" data-target="#accordian103" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian103">
@@ -15450,7 +15474,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian104">
 					  104
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian104">
+				   <td data-toggle="collapse" data-target="#accordian104" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian104">
@@ -15594,7 +15618,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian105">
 					  105
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian105">
+				   <td data-toggle="collapse" data-target="#accordian105" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian105">
@@ -15738,7 +15762,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian106">
 					  106
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian106">
+				   <td data-toggle="collapse" data-target="#accordian106" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian106">
@@ -15882,7 +15906,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian107">
 					  107
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian107">
+				   <td data-toggle="collapse" data-target="#accordian107" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian107">
@@ -16026,7 +16050,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian108">
 					  108
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian108">
+				   <td data-toggle="collapse" data-target="#accordian108" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian108">
@@ -16170,7 +16194,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian109">
 					  109
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian109">
+				   <td data-toggle="collapse" data-target="#accordian109" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian109">
@@ -16314,7 +16338,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian110">
 					  110
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian110">
+				   <td data-toggle="collapse" data-target="#accordian110" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian110">
@@ -16458,7 +16482,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian111">
 					  111
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian111">
+				   <td data-toggle="collapse" data-target="#accordian111" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian111">
@@ -16602,7 +16626,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian112">
 					  112
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian112">
+				   <td data-toggle="collapse" data-target="#accordian112" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian112">
@@ -16746,7 +16770,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian113">
 					  113
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian113">
+				   <td data-toggle="collapse" data-target="#accordian113" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian113">
@@ -16890,7 +16914,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian114">
 					  114
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian114">
+				   <td data-toggle="collapse" data-target="#accordian114" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian114">
@@ -17034,7 +17058,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian115">
 					  115
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian115">
+				   <td data-toggle="collapse" data-target="#accordian115" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian115">
@@ -17178,7 +17202,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian116">
 					  116
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian116">
+				   <td data-toggle="collapse" data-target="#accordian116" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian116">
@@ -17322,7 +17346,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian117">
 					  117
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian117">
+				   <td data-toggle="collapse" data-target="#accordian117" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian117">
@@ -17466,7 +17490,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian118">
 					  118
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian118">
+				   <td data-toggle="collapse" data-target="#accordian118" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian118">
@@ -17610,7 +17634,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian119">
 					  119
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian119">
+				   <td data-toggle="collapse" data-target="#accordian119" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian119">
@@ -17754,7 +17778,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian120">
 					  120
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian120">
+				   <td data-toggle="collapse" data-target="#accordian120" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian120">
@@ -17898,7 +17922,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian121">
 					  121
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian121">
+				   <td data-toggle="collapse" data-target="#accordian121" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian121">
@@ -18042,7 +18066,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian122">
 					  122
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian122">
+				   <td data-toggle="collapse" data-target="#accordian122" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian122">
@@ -18186,7 +18210,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian123">
 					  123
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian123">
+				   <td data-toggle="collapse" data-target="#accordian123" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian123">
@@ -18330,7 +18354,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian124">
 					  124
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian124">
+				   <td data-toggle="collapse" data-target="#accordian124" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian124">
@@ -18474,7 +18498,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian125">
 					  125
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian125">
+				   <td data-toggle="collapse" data-target="#accordian125" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian125">
@@ -18618,7 +18642,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian126">
 					  126
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian126">
+				   <td data-toggle="collapse" data-target="#accordian126" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian126">
@@ -18762,7 +18786,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian127">
 					  127
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian127">
+				   <td data-toggle="collapse" data-target="#accordian127" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian127">
@@ -18906,7 +18930,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian128">
 					  128
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian128">
+				   <td data-toggle="collapse" data-target="#accordian128" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian128">
@@ -19050,7 +19074,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian129">
 					  129
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian129">
+				   <td data-toggle="collapse" data-target="#accordian129" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian129">
@@ -19194,7 +19218,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian130">
 					  130
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian130">
+				   <td data-toggle="collapse" data-target="#accordian130" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian130">
@@ -19338,7 +19362,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian131">
 					  131
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian131">
+				   <td data-toggle="collapse" data-target="#accordian131" id="mutant_killed"> 
 					  No
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian131">
@@ -19482,7 +19506,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian132">
 					  132
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian132">
+				   <td data-toggle="collapse" data-target="#accordian132" id="mutant_killed"> 
 					  Yes
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian132">
@@ -19626,7 +19650,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian133">
 					  133
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian133">
+				   <td data-toggle="collapse" data-target="#accordian133" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian133">
@@ -19770,7 +19794,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian134">
 					  134
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian134">
+				   <td data-toggle="collapse" data-target="#accordian134" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian134">
@@ -19914,7 +19938,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian135">
 					  135
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian135">
+				   <td data-toggle="collapse" data-target="#accordian135" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian135">
@@ -20058,7 +20082,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian136">
 					  136
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian136">
+				   <td data-toggle="collapse" data-target="#accordian136" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian136">
@@ -20202,7 +20226,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian137">
 					  137
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian137">
+				   <td data-toggle="collapse" data-target="#accordian137" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian137">
@@ -20346,7 +20370,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian138">
 					  138
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian138">
+				   <td data-toggle="collapse" data-target="#accordian138" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian138">
@@ -20490,7 +20514,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian139">
 					  139
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian139">
+				   <td data-toggle="collapse" data-target="#accordian139" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian139">
@@ -20634,7 +20658,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian140">
 					  140
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian140">
+				   <td data-toggle="collapse" data-target="#accordian140" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian140">
@@ -20778,7 +20802,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian141">
 					  141
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian141">
+				   <td data-toggle="collapse" data-target="#accordian141" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian141">
@@ -20922,7 +20946,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian142">
 					  142
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian142">
+				   <td data-toggle="collapse" data-target="#accordian142" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian142">
@@ -21066,7 +21090,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian143">
 					  143
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian143">
+				   <td data-toggle="collapse" data-target="#accordian143" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian143">
@@ -21210,7 +21234,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian144">
 					  144
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian144">
+				   <td data-toggle="collapse" data-target="#accordian144" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian144">
@@ -21354,7 +21378,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian145">
 					  145
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian145">
+				   <td data-toggle="collapse" data-target="#accordian145" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian145">
@@ -21498,7 +21522,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian146">
 					  146
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian146">
+				   <td data-toggle="collapse" data-target="#accordian146" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian146">
@@ -21642,7 +21666,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian147">
 					  147
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian147">
+				   <td data-toggle="collapse" data-target="#accordian147" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian147">
@@ -21786,7 +21810,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian148">
 					  148
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian148">
+				   <td data-toggle="collapse" data-target="#accordian148" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian148">
@@ -21930,7 +21954,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian149">
 					  149
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian149">
+				   <td data-toggle="collapse" data-target="#accordian149" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian149">
@@ -22074,7 +22098,7 @@ public class Triangle {
 				   <td data-toggle="collapse" data-target="#accordian150">
 					  150
 				   </td>
-				   <td data-toggle="collapse" data-target="#accordian150">
+				   <td data-toggle="collapse" data-target="#accordian150" id="mutant_killed"> 
 					  Not Covered
 				   </td>
 				   <td data-toggle="collapse" data-target="#accordian150">
