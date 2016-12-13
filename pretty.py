@@ -759,6 +759,17 @@ html_footer = r"""
 				   }]
 				   }
 				   });
+				   $("#mutationScore").on("click", function(evt)
+					{   
+						var activePoints = myChart.getElementsAtEvent(evt);           
+						console.log(activePoints);
+						if(activePoints.length==0){
+							StartedFromTheBottomNowWeAtTheTop('uncovered');
+						} else {
+							StartedFromTheBottomNowWeAtTheTop('alive');
+							StartedFromTheBottomNowWeAtTheTop('killed');
+						}
+					});
 				</script>
 				<script>
 				   var ctx = document.getElementById("runTime").getContext('2d');
@@ -784,8 +795,7 @@ html_footer = r"""
 						 }
 						 });
 				
-					var chart = document.getElementById("killedMutants").getContext('2d');
-					document.getElementById("killedMutants").onclick = function(evt)
+					$("#killedMutants").on("click", function(evt)
 					{   
 						var activePoints = myChart.getElementsAtEvent(evt);           
 						console.log(activePoints);
@@ -794,7 +804,7 @@ html_footer = r"""
 						} else {
 							StartedFromTheBottomNowWeAtTheTop('killed');
 						}
-					} 
+					});
 
 				</script>
 				</body>
