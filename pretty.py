@@ -133,26 +133,26 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	</script>
 	
 	<script>
-	 function StartedFromTheBottomNowWeAtTheTopNowWeBackAtTheBottom(input){
+	 function StartedFromTheBottomNowWeAtTheTop(input){
 	   if(input === 'killed'){
 		$(".killed").each(function() {
 	    var child = $(this).closest('tr').next('tr');
+		child.prependTo("#mutantTable");
 		$(this).prependTo("#mutantTable");
-		$(this).insertAfter(child);
 
 	   });
 	   } else if(input === 'alive'){
 	   $(".alive").each(function() {
-	    var child = $(this).closest('tr').next('tr');
+	    var child = $(this).closest('tr').next('tr');		
+		child.prependTo("#mutantTable");
 		$(this).prependTo("#mutantTable");
-		$(this).insertAfter(child);
 
 	   });
 	   } else {
 	   $(".uncovered").each(function() {
 	    var child = $(this).closest('tr').next('tr');
+		child.prependTo("#mutantTable");
 		$(this).prependTo("#mutantTable");
-		$(this).insertAfter(child);
 	   });
 	   }	   
 	 }
