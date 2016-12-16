@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-
-
 import csv
 from collections import  defaultdict
 from csv import DictReader
-import cPickle as pickle
 import cgi
 import cgitb; cgitb.enable()
 import re
