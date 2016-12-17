@@ -130,7 +130,7 @@ Prism.languages.java=Prism.languages.extend("clike",{keyword:/\b(abstract|contin
 	</script>
 	
 	<script>
-	 function StartedFromTheBottomNowWeAtTheTop(input){
+	 function ChartSortFunction(input){
 	   if(input === 'killed'){
 		$(".killed").each(function() {
 	    var child = $(this).closest('tr').next('tr');
@@ -769,10 +769,10 @@ html_footer = r"""
 						var activePoints = myChart.getElementsAtEvent(evt);           
 						console.log(activePoints);
 						if(activePoints.length==0){
-							StartedFromTheBottomNowWeAtTheTop('uncovered');
+							ChartSortFunction('uncovered');
 						} else {
-							StartedFromTheBottomNowWeAtTheTop('alive');
-							StartedFromTheBottomNowWeAtTheTop('killed');
+							ChartSortFunction('alive');
+							ChartSortFunction('killed');
 						}
 					});
 				</script>
@@ -805,9 +805,9 @@ html_footer = r"""
 						var activePoints = myChart.getElementsAtEvent(evt);           
 						console.log(activePoints);
 						if(activePoints.length==0){
-							StartedFromTheBottomNowWeAtTheTop('alive');
+							ChartSortFunction('alive');
 						} else {
-							StartedFromTheBottomNowWeAtTheTop('killed');
+							ChartSortFunction('killed');
 						}
 					});
 
